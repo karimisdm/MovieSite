@@ -1,3 +1,22 @@
+<script setup>
+import { ref } from 'vue';
+
+
+const detailMovie = ref(null)
+const getMoviesDetail = async ()=>{
+    const response = await fetch("https://moviesapi.codingfront.dev/api/v1/movies?page={page}");
+    if(response.ok){
+        const result = await response.json();
+        console.log(result);
+        detailMovie.value = result;
+    }else{
+        return;
+        
+    }
+};
+
+
+</script>
 <template>
     <div class="container">
         <div class="result">
@@ -13,18 +32,16 @@
         <div class="movies">
             <ul>
                 <li>
-                    first film
+                    first film name:
+                     
                 </li>
-                <li>
-                    second film
-                </li>
-                <li>
-                    third film
-                </li>
+             
             </ul>
-
         </div>
+        <button @click="getMoviesDetail">Get</button><br/>
 
+        <!-- {{ detailMovie.data[0].title}} -->
+          {{ detailMovie }}
     </div>
 
 

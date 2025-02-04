@@ -27,9 +27,6 @@
   }
 }
 
-*{
-  box-sizing: border-box;
-}
 .container {
   width: 980px;
   margin-left: auto;
@@ -42,4 +39,5 @@ body {
   font-family: Inter;
   font-size: 15px;
   background-color:  #070D23;
+  color: white;
 }
