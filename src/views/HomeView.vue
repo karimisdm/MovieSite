@@ -38,13 +38,8 @@
 
 
 </template>
-<style scoped>
-.container {
-  width: 980px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 100%;
-}
+<style>
+
 
 .site_name {
   font-family: Inter;
