@@ -32,16 +32,41 @@ const getMoviesDetail = async ()=>{
         <div class="movies">
             <ul>
                 <li>
-                    first film name:
-                     
+                    <div v-if="detailMovie" style="display: flex;">
+                        {{ detailMovie.data[0].title}}
+                        <img :src="detailMovie.data[0].images"  width="300px"/>
+                    </div>      
+                </li>
+                <li>
+                    <div v-if="detailMovie" style="display: flex;">
+                        {{ detailMovie.data[1].title}}
+                        <img :src="detailMovie.data[1].images"  width="300px"/>
+                    </div>      
+                </li>
+                <li>
+                    <div v-if="detailMovie" style="display: flex;">
+                        {{ detailMovie.data[2].title}}
+                        <img :src="detailMovie.data[2].images"  width="300px"/>
+                    </div>      
+                </li>
+                <li>
+                    <div v-if="detailMovie" style="display: flex;">
+                        {{ detailMovie.data[3].title}}
+                        <img :src="detailMovie.data[3].images"  width="300px"/>
+                    </div>      
+                </li>
+                <li>
+                    <div v-if="detailMovie" style="display: flex;">
+                        {{ detailMovie.data[4].title}}
+                        <img :src="detailMovie.data[4].images"  width="300px"/>
+                    </div>      
                 </li>
              
             </ul>
         </div>
         <button @click="getMoviesDetail">Get</button><br/>
 
-        <!-- {{ detailMovie.data[0].title}} -->
-          {{ detailMovie }}
+          
     </div>
 
 
