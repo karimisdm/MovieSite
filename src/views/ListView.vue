@@ -14,16 +14,18 @@ const getMoviesDetail = async ()=>{
         
     }
 };
+
+// it should be improve
 const getFilteredMovieNames = ()=>{
     const arrName =[];
-    // detailMovie.foreach((movie)=>{
-        detailMovie.data.foreach((title)=>{
+    detailMovie.data.foreach((movie)=>{
+        movie.foreach((title)=>{
             arrName.push(title);
-
         });
+    });
     return arrName;
-
 }
+
 
 </script>
 <template>
@@ -45,7 +47,8 @@ const getFilteredMovieNames = ()=>{
                        <img :src="movie.images" class="movies_img"/>
                        <div class="movies_title">
                         <strong>{{ movie.title }}</strong><br/>   
-                        <small>{{ movie.year }}</small>
+                        <small>{{ movie.year }}</small><br/>
+                        <span class="movies_genre">{{ movie.genres.join(',') }}</span>
                        </div>   
                     </div>
                 </li> 
@@ -87,10 +90,9 @@ const getFilteredMovieNames = ()=>{
     display: flex;
     margin-top: 25px;
     height: 137px;
-    border-bottom: solid 1px white;
 }
-.movies li:nth-last-child{
-    background-color: red;
+.movies li:not(:last-child) {
+    border-bottom: solid 1px #222C4F;
 }
 .movies_img {
     width: 137px;
@@ -106,5 +108,11 @@ const getFilteredMovieNames = ()=>{
 }
 .movies_detail {
     padding-bottom: 5px;
+}
+.movies_genre {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 14.52px;
+    opacity: 40%;
 }
 </style>
