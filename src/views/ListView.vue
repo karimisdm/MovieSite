@@ -48,7 +48,8 @@ const getFilteredMovieNames = ()=>{
                        <div class="movies_title">
                         <strong>{{ movie.title }}</strong><br/>   
                         <small>{{ movie.year }}</small><br/>
-                        <span class="movies_genre">{{ movie.genres.join(',') }}</span>
+                        <span class="movies_genre">{{ movie.genres.join(',') }}</span><br/>
+                        <div class="star"></div>
                        </div>   
                     </div>
                 </li> 
@@ -114,5 +115,11 @@ const getFilteredMovieNames = ()=>{
     font-weight: 300;
     line-height: 14.52px;
     opacity: 40%;
+}
+.star {
+    width: 14px;
+    height: 14px;
+    background-color:#F2C94C;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 </style>
