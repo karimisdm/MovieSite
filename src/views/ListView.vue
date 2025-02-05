@@ -41,9 +41,12 @@ const getFilteredMovieNames = ()=>{
         <div class="movies">
             <ul v-if="detailMovie">
                 <li v-for="movie in detailMovie.data">
-                    <div class="movies_detail">
+                    <div class="movies_detail flex">
                        <img :src="movie.images" class="movies_img"/>
-                       {{ movie.title }}
+                       <div class="movies_title">
+                        <strong>{{ movie.title }}</strong><br/>   
+                        <small>{{ movie.year }}</small>
+                       </div>   
                     </div>
                 </li> 
             </ul>
@@ -84,14 +87,24 @@ const getFilteredMovieNames = ()=>{
     display: flex;
     margin-top: 25px;
     height: 137px;
+    border-bottom: solid 1px white;
+}
+.movies li:nth-last-child{
+    background-color: red;
 }
 .movies_img {
     width: 137px;
     object-fit: cover;
     border-radius: 18px;
 }
+.movies_title {
+    /* font-size: 28px; */
+    font-weight: 700;
+    line-height: 33.89px;
+    text-align: left;
+    padding: 3px 10px;
+}
 .movies_detail {
-    width: 50%;
-    display: flex;
+    padding-bottom: 5px;
 }
 </style>
