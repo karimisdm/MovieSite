@@ -14,7 +14,16 @@ const getMoviesDetail = async ()=>{
         
     }
 };
+const getFilteredMovieNames = ()=>{
+    const arrName =[];
+    // detailMovie.foreach((movie)=>{
+        detailMovie.data.foreach((title)=>{
+            arrName.push(title);
 
+        });
+    return arrName;
+
+}
 
 </script>
 <template>
@@ -30,46 +39,17 @@ const getMoviesDetail = async ()=>{
             <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" />
         </div>
         <div class="movies">
-            <ul>
-                <li>
-                    <div v-if="detailMovie" style="display: flex;">
-                        {{ detailMovie.data[0].title}}
-                        <img :src="detailMovie.data[0].images"  width="300px"/>
-                    </div>      
-                </li>
-                <li>
-                    <div v-if="detailMovie" style="display: flex;">
-                        {{ detailMovie.data[1].title}}
-                        <img :src="detailMovie.data[1].images"  width="300px"/>
-                    </div>      
-                </li>
-                <li>
-                    <div v-if="detailMovie" style="display: flex;">
-                        {{ detailMovie.data[2].title}}
-                        <img :src="detailMovie.data[2].images"  width="300px"/>
-                    </div>      
-                </li>
-                <li>
-                    <div v-if="detailMovie" style="display: flex;">
-                        {{ detailMovie.data[3].title}}
-                        <img :src="detailMovie.data[3].images"  width="300px"/>
-                    </div>      
-                </li>
-                <li>
-                    <div v-if="detailMovie" style="display: flex;">
-                        {{ detailMovie.data[4].title}}
-                        <img :src="detailMovie.data[4].images"  width="300px"/>
-                    </div>      
-                </li>
-             
+            <ul v-if="detailMovie">
+                <li v-for="movie in detailMovie.data">
+                    <div class="movies_detail">
+                       <img :src="movie.images" class="movies_img"/>
+                       {{ movie.title }}
+                    </div>
+                </li> 
             </ul>
         </div>
-        <button @click="getMoviesDetail">Get</button><br/>
-
-          
+        <button @click="getMoviesDetail">Get</button>      
     </div>
-
-
 </template>
 <style>
 .result {
@@ -99,5 +79,19 @@ const getMoviesDetail = async ()=>{
 }
 .space {
     width: 40px;
+}
+.movies li {
+    display: flex;
+    margin-top: 25px;
+    height: 137px;
+}
+.movies_img {
+    width: 137px;
+    object-fit: cover;
+    border-radius: 18px;
+}
+.movies_detail {
+    width: 50%;
+    display: flex;
 }
 </style>
