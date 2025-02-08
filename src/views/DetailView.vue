@@ -1,9 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 
-
+const information = ref(null);
 const getInformationMovie = async ()=>{
-   const information = ref(null);
     const response= await fetch("https://moviesapi.codingfront.dev/api/v1/movies/1");
     if(response.ok){
         const result = await response.json();
@@ -12,8 +11,6 @@ const getInformationMovie = async ()=>{
         return;
     }
 };
-getInformationMovie();
-
 
 </script>
 
@@ -27,11 +24,10 @@ getInformationMovie();
             <div class="flex_detail">
                 <div class="movie_image">Pic</div>
                 <div v-if="information">Details:
-
-                    {{ information }}
+                    {{ information }}   
                 </div>
-
             </div>
+            <button @click="getInformationMovie">MovieFeatures</button>
 
         </div>
     </div>
