@@ -22,14 +22,23 @@ const getInformationMovie = async ()=>{
                 <div class="movie_image">  
                     <img :src="information.images" alt="pic of movie"/>
                     <div class="flex">
-                        <div class="circle_score">{{ information.imdb_rating }}</div>
-                        <div>{{ information.imdb_votes }}</div>
+                        <div class="progress_bar">
+                            <span class="number"></span>
+                            <svg width="150px" height="150px" class="circle">
+                               <circle cx="75" cy="75" r="65" stroke="#724CF9" stroke-width="20" fill="none" :stroke-dashoffset="information.imdb_rating"/>
+                            </svg>
+
+                        </div>
+                        <div>
+                            {{ information.imdb_votes }}
+                            <span>ratings on IMDB</span>
+                        </div>
                     </div>
-                    <p>on Metacritic</p>
+                    
                 </div>
-                <div v-if="information" class="details">
-                   <strong class="movie_title">{{ information.title }} </strong> 
-                   <small>{{ information.genre }}</small><br/>
+                <div class="details">
+                   <strong class="movie_title">{{ information.title }} </strong><br/>
+                   <small>{{ information.genres.join(',') }}</small><br/>
                    <p class="movie_description">{{ information.plot }}</p>
                    <ul class="flex_detail">
                     <li class="movie_history">{{ information.rated }}</li>
@@ -81,5 +90,39 @@ const getInformationMovie = async ()=>{
 .movie_description {
     margin-top: 15px;
     margin-bottom: 15px;
+}
+/* progress bar*/
+.progress_bar {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    color: grey;
+    outline: 2px solid #724CF9;
+    outline-offset: -1px;
+}
+.progress_bar::after,
+.number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.progress_bar::after {
+    content: '';
+    width: 110px;
+    height: 110px;
+    border-radius: inherit;
+    outline: inherit;
+}
+.number {
+    font-size: 21px;
+    font-weight: bold;
+}
+.circle {
+    stroke-dasharray: 410;
+    /* stroke-dashoffset: 70; */
+    transform: rotate(-90deg);
+    animation: 2s linear forwards;
 }
 </style>
