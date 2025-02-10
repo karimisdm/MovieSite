@@ -14,19 +14,24 @@ const getInformationMovie = async ()=>{
 
 </script>
 
-
-
-
 <template>
     <div class="container">
         <div class="flash_back">
             <div class="vector"><img src="/public/angle-left.svg"/></div>
-            <div class="flex_detail">
-                <div class="movie_image">Pic</div>
-                <div v-if="information">Details:
-                    {{ information }}   
+            <div v-if="information" class="flex_detail">
+                <div class="movie_image">  
+                    <img :src="information.images" alt="pic of movie" width="200px"/>
+                    <div class="flex">
+                        <div>circle-</div>
+                        <div>rating</div>
+                    </div>
+                    <p>on Metacritic</p>
+                </div>
+                <div class="details">
+                    {{ information.title }} 
                 </div>
             </div>
+            <br/>
             <button @click="getInformationMovie">MovieFeatures</button>
 
         </div>
@@ -40,5 +45,15 @@ const getInformationMovie = async ()=>{
 .flex_detail {
     display: flex;
     justify-content: space-between;
+}
+.details {
+    flex-grow: 2;
+    background-color: blue;
+    padding-left: 25px;
+}
+.movie_image img{
+    width: 208;
+    height: 312;
+    border-radius: 18px;
 }
 </style>
