@@ -23,15 +23,15 @@ const getInformationMovie = async ()=>{
                     <img :src="information.images" alt="pic of movie"/>
                     <div class="flex">
                         <div class="progress_bar">
-                            <span class="number"></span>
+                            <span class="number">{{ information.imdb_rating }}</span>
                             <svg width="150px" height="150px" class="circle">
-                               <circle cx="75" cy="75" r="65" stroke="#724CF9" stroke-width="20" fill="none" :stroke-dashoffset="information.imdb_rating"/>
+                               <circle cx="75" cy="75" r="65" stroke="#724CF9" stroke-width="20" fill="none" :stroke-dashoffset="(information.imdb_rating * 100)"/>
                             </svg>
 
                         </div>
-                        <div>
-                            {{ information.imdb_votes }}
-                            <span>ratings on IMDB</span>
+                        <div class="rate">
+                            <span class="votes">{{ information.imdb_votes }}</span>
+                            <p class="text_vote">rating on IMDB</p>
                         </div>
                     </div>
                     
@@ -64,19 +64,21 @@ const getInformationMovie = async ()=>{
 }
 .details {
     flex-grow: 2;
-    background-color: blue;
     padding-left: 25px;
 }
 .details ul {
-    width: 40%;
+    width: 50%;
 }
 .movie_title {
     font-weight: 700;
     font-size: 48px;
     line-height: 58.09px;
 }
+.movie_image {
+    flex-grow: 1;
+}
 .movie_image img{
-   width: 208px;
+   width: 235px;
    height: 312px;
    border-radius: 18px;
 }
@@ -125,4 +127,16 @@ const getInformationMovie = async ()=>{
     transform: rotate(-90deg);
     animation: 2s linear forwards;
 }
+.votes {
+    font-size: 16px;
+}
+.text_vote {
+    font-size: 14px;
+    opacity: 60%;
+}
+.rate {
+    width: 100px;
+}
+
+
 </style>
