@@ -20,6 +20,7 @@ const getInformationMovie = async ()=>{
         <div class="gradient_header"></div>
     </div>
     <div class="container">
+        <div class="wrapper">
            <div class="flash_back">
               <div class="vector"><img src="/public/angle-left.svg"/></div>
             </div>
@@ -95,6 +96,7 @@ const getInformationMovie = async ()=>{
             </div>
             <br/>
             <button @click="getInformationMovie">MovieFeatures</button>
+        </div>
     </div>
     
 </template>
@@ -109,6 +111,7 @@ const getInformationMovie = async ()=>{
 .details {
     flex-grow: 2;
     padding-left: 25px;
+    margin-top: 220px;
 }
 .scores {
     width: 50%;
@@ -120,6 +123,7 @@ const getInformationMovie = async ()=>{
 }
 .movie_image {
     flex-grow: 1;
+    margin-top: 220px;
 }
 .movie_image img{
    width: 235px;
@@ -203,7 +207,7 @@ const getInformationMovie = async ()=>{
     width: 100%;
     height: auto;
     object-fit: cover;
-    margin-top: -130px; 
+    margin-top: -120px; 
 }
 .gradient_header {
     position: absolute;
@@ -211,8 +215,14 @@ const getInformationMovie = async ()=>{
     left: 0;
     background: linear-gradient(180deg, rgba(7, 13, 35, 0) 0%, rgba(7, 13, 35, 0.7) 28.5%, rgba(7, 13, 35, 0.9) 60%, #070D23 99%);
     right: 0;
-    bottom: 0;
-     
+    bottom: 0;   
+}
+.wrapper {
+    /* border: solid red; */
+    position: absolute;
+    top: 50px;
+    left: 180px;
+    right: 180px;
 }
 
 
