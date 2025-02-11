@@ -15,13 +15,18 @@ const getInformationMovie = async ()=>{
 </script>
 
 <template>
+    <div class="image_header" v-if="information">
+        <div :style="`background-image: url(${information.images})`" class="dynamic_image">
+            header
+        </div>
+    </div>
     <div class="container">
            <div class="flash_back">
               <div class="vector"><img src="/public/angle-left.svg"/></div>
             </div>
             <div v-if="information" class="flex_detail">
                 <div class="movie_image">  
-                    <img :src="information.images" alt="pic of movie"/>
+                    <img :src="information.poster" alt="pic of movie"/>
                     <div class="flex">
                         <div class="progress_bar">
                             <span class="number">{{ information.imdb_rating }}</span>
@@ -187,6 +192,17 @@ const getInformationMovie = async ()=>{
     font-size: 14px;
     line-height: 16.94px;
     letter-spacing: 0%;
+}
+.costs li:not(:last-child) {
+    border-bottom: 1px solid  #222C4F;
+}
+.image_header {
+   width: 100%;
+    
+}
+.dynamic_image {
+    height: 400px;
+    
 }
 
 
