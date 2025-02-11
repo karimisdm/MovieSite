@@ -16,8 +16,9 @@ const getInformationMovie = async ()=>{
 
 <template>
     <div class="container">
-        <div class="flash_back">
-            <div class="vector"><img src="/public/angle-left.svg"/></div>
+           <div class="flash_back">
+              <div class="vector"><img src="/public/angle-left.svg"/></div>
+            </div>
             <div v-if="information" class="flex_detail">
                 <div class="movie_image">  
                     <img :src="information.images" alt="pic of movie"/>
@@ -40,17 +41,56 @@ const getInformationMovie = async ()=>{
                    <strong class="movie_title">{{ information.title }} </strong><br/>
                    <small>{{ information.genres.join(',') }}</small><br/>
                    <p class="movie_description">{{ information.plot }}</p>
-                   <ul class="flex_detail">
+                   <ul class="flex_detail scores">
                     <li class="movie_history">{{ information.rated }}</li>
                     <li class="movie_history">{{ information.released }}</li>
                     <li class="movie_history">{{ information.runtime }}</li>
                    </ul>
+                   <div>
+                    <strong>Details</strong>
+                    <ul class="costs">
+                        <li>
+                            <div class="flex_detail">
+                                <div class="costs_text">Directors</div>
+                                <div class="costs_name">{{ information.director }}</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex_detail">
+                                <div class="costs_text">Writers</div>
+                                <div class="costs_name">{{ information.writer }}</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex_detail">
+                                <div class="costs_text">Actors</div>
+                                <div class="costs_name">{{ information.actors }}</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex_detail">
+                                <div class="costs_text">Country</div>
+                                <div class="costs_name">{{ information.country }}</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex_detail">
+                                <div class="costs_text">Language</div>
+                                <div class="costs_name">{{ information.language }}</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex_detail">
+                                <div class="costs_text">Awards</div>
+                                <div class="costs_name">{{ information.awards }}</div>
+                            </div>
+                        </li>
+                    </ul>
+                   </div>
                 </div>
             </div>
             <br/>
             <button @click="getInformationMovie">MovieFeatures</button>
-
-        </div>
     </div>
     
 </template>
@@ -66,7 +106,7 @@ const getInformationMovie = async ()=>{
     flex-grow: 2;
     padding-left: 25px;
 }
-.details ul {
+.scores {
     width: 50%;
 }
 .movie_title {
@@ -136,6 +176,17 @@ const getInformationMovie = async ()=>{
 }
 .rate {
     width: 100px;
+}
+
+.costs_text {
+    width: 40%;
+}
+.costs_name {
+    width: 60%;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16.94px;
+    letter-spacing: 0%;
 }
 
 
