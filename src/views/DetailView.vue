@@ -16,9 +16,8 @@ const getInformationMovie = async ()=>{
 
 <template>
     <div class="image_header" v-if="information">
-        <div :style="`background-image: url(${information.images})`" class="dynamic_image">
-            header
-        </div>
+        <img :src="information.images" alt="picture of movie" class="dynamic_image"/>
+        <div class="gradient_header"></div>
     </div>
     <div class="container">
            <div class="flash_back">
@@ -197,12 +196,23 @@ const getInformationMovie = async ()=>{
     border-bottom: 1px solid  #222C4F;
 }
 .image_header {
+   position: relative;
    width: 100%;
-    
 }
-.dynamic_image {
-    height: 400px;
-    
+.dynamic_image{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-top: -130px; 
+}
+.gradient_header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(180deg, rgba(7, 13, 35, 0) 0%, rgba(7, 13, 35, 0.7) 28.5%, rgba(7, 13, 35, 0.9) 60%, #070D23 99%);
+    right: 0;
+    bottom: 0;
+     
 }
 
 
