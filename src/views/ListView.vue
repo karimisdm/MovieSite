@@ -58,8 +58,7 @@ const getFilteredMovieNames = ()=>{
                     </div>
                 </li> 
             </ul>
-        </div>
-        <button @click="getMoviesDetail">Get</button>      
+        </div>    
     </div>
 </template>
 <style>

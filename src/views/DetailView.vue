@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const information = ref(null);
 const getInformationMovie = async ()=>{
@@ -11,6 +11,9 @@ const getInformationMovie = async ()=>{
         return;
     }
 };
+onMounted(()=>{
+    getInformationMovie();
+});
 
 </script>
 
@@ -44,7 +47,7 @@ const getInformationMovie = async ()=>{
                 </div>
                 <div class="details">
                    <strong class="movie_title">{{ information.title }} </strong><br/>
-                   <small>{{ information.genres.join(',') }}</small><br/>
+                   <small class="genres">{{ information.genres.join(',') }}</small><br/>
                    <p class="movie_description">{{ information.plot }}</p>
                    <ul class="flex_detail scores">
                     <li class="movie_history">{{ information.rated }}</li>
@@ -52,7 +55,7 @@ const getInformationMovie = async ()=>{
                     <li class="movie_history">{{ information.runtime }}</li>
                    </ul>
                    <div>
-                    <strong>Details</strong>
+                    <strong class="text_Detail">Details</strong>
                     <ul class="costs">
                         <li>
                             <div class="flex_detail">
@@ -95,7 +98,6 @@ const getInformationMovie = async ()=>{
                 </div>
             </div>
             <br/>
-            <button @click="getInformationMovie">MovieFeatures</button>
         </div>
     </div>
     
@@ -112,6 +114,12 @@ const getInformationMovie = async ()=>{
     flex-grow: 2;
     padding-left: 25px;
     margin-top: 220px;
+}
+.text_Detail {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 50px;
+    padding: 15px 20px 15px 0;
 }
 .scores {
     width: 50%;
@@ -140,6 +148,11 @@ const getInformationMovie = async ()=>{
 .movie_description {
     margin-top: 15px;
     margin-bottom: 15px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: justify;
+    color: #FFFFFF99;
 }
 /* progress bar*/
 .progress_bar {
@@ -166,12 +179,15 @@ const getInformationMovie = async ()=>{
     outline: inherit;
 }
 .number {
-    font-size: 21px;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29.05px;
+    letter-spacing: 0%;
+    text-align: center;
+    color: white;
 }
 .circle {
     stroke-dasharray: 410;
-    /* stroke-dashoffset: 70; */
     transform: rotate(-90deg);
     animation: 2s linear forwards;
 }
@@ -186,15 +202,27 @@ const getInformationMovie = async ()=>{
     width: 100px;
 }
 
+.costs {
+    margin-top: 10px;
+}
+.costs li {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
 .costs_text {
     width: 40%;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19.36px;
+    opacity: 80%;
 }
 .costs_name {
     width: 60%;
     font-weight: 400;
     font-size: 14px;
     line-height: 16.94px;
-    letter-spacing: 0%;
+    opacity: 60%;
 }
 .costs li:not(:last-child) {
     border-bottom: 1px solid  #222C4F;
@@ -218,11 +246,17 @@ const getInformationMovie = async ()=>{
     bottom: 0;   
 }
 .wrapper {
-    /* border: solid red; */
     position: absolute;
     top: 50px;
     left: 200px;
     right: 200px;
+    padding-bottom: 100px;
+}
+.genres {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 14.52px;
+    opacity: 40%;
 }
 
 
