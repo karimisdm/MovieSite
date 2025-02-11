@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 
 const detailMovie = ref(null)
@@ -14,6 +14,10 @@ const getMoviesDetail = async ()=>{
         
     }
 };
+
+onMounted(()=>{
+    getMoviesDetail();
+});
 
 // it should be improve
 const getFilteredMovieNames = ()=>{

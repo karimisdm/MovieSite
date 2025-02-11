@@ -221,8 +221,8 @@ const getInformationMovie = async ()=>{
     /* border: solid red; */
     position: absolute;
     top: 50px;
-    left: 180px;
-    right: 180px;
+    left: 200px;
+    right: 200px;
 }
 
 
