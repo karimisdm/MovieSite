@@ -35,7 +35,7 @@ const getFilteredMovieNames = ()=>{
 <template>
     <div class="container">
         <div class="result">
-            <div class="vector"><img src="/public/angle-left.svg"/></div>
+          <RouterLink to="/"><div class="vector"><img src="/public/angle-left.svg"/></div></RouterLink>  
             <div class="title_res">Result</div>
             <div class="space"></div>
         </div>

@@ -25,7 +25,7 @@ onMounted(()=>{
     <div class="container">
         <div class="wrapper">
            <div class="flash_back">
-              <div class="vector"><img src="/public/angle-left.svg" alt="picture of angle"/></div>
+              <RouterLink to="/list"><div class="vector"><img src="/public/angle-left.svg" alt="picture of angle"/></div></RouterLink>   
             </div>
             <div v-if="information" class="flex_detail">
                 <div class="movie_image">  
