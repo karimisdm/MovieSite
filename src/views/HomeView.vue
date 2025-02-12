@@ -12,9 +12,13 @@ import { ref } from 'vue';
 // };
 // console.log(showMovieGenre());
 const showMore= ref(true);
+const showOther = ref(false)
 const showMovieGenre = ()=>{
-   showMore.value = !showMore;
-}
+   showMore.value = false;
+   setTimeout(()=>{
+    showOther.value = true;
+   },1000)
+};
 
 </script>
 
@@ -31,8 +35,8 @@ const showMovieGenre = ()=>{
       <button class="btn_genre">Drama</button>
       <button class="btn_genre">Action</button>
       <button class="btn_genre">Biography</button>
-      <button v-if="showMore" class="btn_genre showMore" @click="showMovieGenre">Show More</button>
-      <button v-else class="btn_genre beforeShow">History</button>
+      <button v-if="showMore" class="btn_genre showMore" @click="showMovieGenre()">Show More</button>
+      <button v-if="!showMore" class="btn_genre">History</button>
       <button class="btn_genre beforeShow">Adventure</button>
       <button class="btn_genre beforeShow">Fantasy</button>
       <button class="btn_genre beforeShow">Western</button>
@@ -107,9 +111,9 @@ const showMovieGenre = ()=>{
   margin-top: 8px;
 }
 
-/* .showMore {
+.showMore {
   display: inline;
-} */
+}
 .beforeShow {
   display: none;
 }
