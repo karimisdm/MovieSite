@@ -1,4 +1,16 @@
 <script setup>
+import { ref } from 'vue';
+
+const displayMode = ref("inline");
+const showMovieGenre = ()=>{
+  if(displayMode.value === 'inline'){
+    displayMode.value = none;
+  }else if(displayMode.value === none){
+    displayMode.value = 'inline';
+  }
+  return displayMode;
+};
+console.log(showMovieGenre());
 
 </script>
 
@@ -15,7 +27,7 @@
       <button class="btn_genre">Drama</button>
       <button class="btn_genre">Action</button>
       <button class="btn_genre">Biography</button>
-      <button class="btn_genre showMore">Show More</button>
+      <button class="btn_genre showMore" @click="showMovieGenre" style="display: inline;">Show More</button>
       <button class="btn_genre beforeShow">History</button>
       <button class="btn_genre beforeShow">Adventure</button>
       <button class="btn_genre beforeShow">Fantasy</button>
@@ -39,8 +51,6 @@
 
 </template>
 <style>
-
-
 .site_name {
   font-family: Inter;
   font-size: 140px;
@@ -93,9 +103,9 @@
   margin-top: 8px;
 }
 
-.showMore {
+/* .showMore {
   display: inline;
-}
+} */
 .beforeShow {
   display: none;
 }
