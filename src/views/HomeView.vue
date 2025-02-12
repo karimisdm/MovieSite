@@ -1,16 +1,20 @@
 <script setup>
 import { ref } from 'vue';
 
-const displayMode = ref("inline");
+// const displayMode = ref("inline");
+// const showMovieGenre = ()=>{
+//   if(displayMode.value === 'inline'){
+//     displayMode.value = none;
+//   }else if(displayMode.value === none){
+//     displayMode.value = 'inline';
+//   }
+//   return displayMode;
+// };
+// console.log(showMovieGenre());
+const showMore= ref(true);
 const showMovieGenre = ()=>{
-  if(displayMode.value === 'inline'){
-    displayMode.value = none;
-  }else if(displayMode.value === none){
-    displayMode.value = 'inline';
-  }
-  return displayMode;
-};
-console.log(showMovieGenre());
+   showMore.value = !showMore;
+}
 
 </script>
 
@@ -27,8 +31,8 @@ console.log(showMovieGenre());
       <button class="btn_genre">Drama</button>
       <button class="btn_genre">Action</button>
       <button class="btn_genre">Biography</button>
-      <button class="btn_genre showMore" @click="showMovieGenre" style="display: inline;">Show More</button>
-      <button class="btn_genre beforeShow">History</button>
+      <button v-if="showMore" class="btn_genre showMore" @click="showMovieGenre">Show More</button>
+      <button v-else class="btn_genre beforeShow">History</button>
       <button class="btn_genre beforeShow">Adventure</button>
       <button class="btn_genre beforeShow">Fantasy</button>
       <button class="btn_genre beforeShow">Western</button>
