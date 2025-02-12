@@ -25,7 +25,7 @@ onMounted(()=>{
     <div class="container">
         <div class="wrapper">
            <div class="flash_back">
-              <div class="vector"><img src="/public/angle-left.svg"/></div>
+              <div class="vector"><img src="/public/angle-left.svg" alt="picture of angle"/></div>
             </div>
             <div v-if="information" class="flex_detail">
                 <div class="movie_image">  
@@ -121,9 +121,7 @@ onMounted(()=>{
     line-height: 50px;
     padding: 15px 20px 15px 0;
 }
-.scores {
-    width: 50%;
-}
+
 .movie_title {
     font-weight: 700;
     font-size: 48px;
@@ -138,7 +136,13 @@ onMounted(()=>{
    height: 312px;
    border-radius: 18px;
 }
+.scores {
+    width: 224px;
+}
 .movie_history {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.52px;
     border-radius: 8px;
     padding: 6px 12px;
     background-color: #222C4F;

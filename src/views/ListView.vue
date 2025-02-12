@@ -82,10 +82,10 @@ const getFilteredMovieNames = ()=>{
     height: 40px;
     border-radius: 16px;
     background-color: #222C4F;
+    text-align: center;
 }
 .vector img {
     margin-top: 23%;
-    margin-right: 10%;
 }
 .space {
     width: 40px;
