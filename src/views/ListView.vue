@@ -1,11 +1,12 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import Detail from './DetailView.vue';
 
 
-const detailMovie = ref(null)
-const genre = 'crime';
+
+const detailMovie = ref(null);
 const getMoviesDetail = async ()=>{
-    const response = await fetch(`https://moviesapi.codingfront.dev/api/v1/genres/${genre}/movies?page={page}`);
+    const response = await fetch("https://moviesapi.codingfront.dev/api/v1/movies?page={page}");
     if(response.ok){
         const result = await response.json();
         console.log(result);
@@ -16,9 +17,11 @@ const getMoviesDetail = async ()=>{
     }
 };
 
-onMounted(()=>{
-    getMoviesDetail();
-});
+getMoviesDetail();
+
+// onMounted(()=>{
+//     getMoviesDetail();
+// });
 
 // it should be improve
 const getFilteredMovieNames = ()=>{
@@ -34,7 +37,7 @@ const getFilteredMovieNames = ()=>{
 
 </script>
 <template>
-    <div class="container">
+    <div v-if="detailMovie" class="container">
         <div class="result">
           <RouterLink to="/"><div class="vector"><img src="/public/angle-left.svg"/></div></RouterLink>  
             <div class="title_res">Result</div>
@@ -47,7 +50,7 @@ const getFilteredMovieNames = ()=>{
         </div>
         <div class="movies">
             <ul v-if="detailMovie">
-                <li v-for="movie in detailMovie.data">
+                <li v-for="movie in detailMovie.data" :id="movie.id">
                     <div class="movies_detail flex">
                        <img :src="movie.images" class="movies_img"/>
                        <div class="movies_title">
@@ -57,10 +60,12 @@ const getFilteredMovieNames = ()=>{
                         <div class="star"></div>
                        </div>   
                     </div>
+                
                 </li> 
             </ul>
         </div>    
     </div>
+
 </template>
 <style>
 .result {

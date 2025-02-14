@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import ListMovies from './ListView.vue';
+
 
 
 const showMore= ref(true);
@@ -23,7 +23,7 @@ const showMovieGenre = ()=>{
       <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon"/>
     </div>
     <div class="genre_movie">
-      <button class="btn_genre">Crime</button>
+      <button class="btn_genre" id="crime">Crime</button>
       <button class="btn_genre">Drama</button>
       <button class="btn_genre">Action</button>
       <button class="btn_genre">Biography</button>
@@ -46,7 +46,6 @@ const showMovieGenre = ()=>{
       <button v-if="!showMore" class="btn_genre">Sport</button>
     </div>
   </div>
-  
 
 </template>
 <style>
