@@ -3,8 +3,9 @@ import { onMounted, ref } from 'vue';
 
 
 const detailMovie = ref(null)
+const genre = 'crime';
 const getMoviesDetail = async ()=>{
-    const response = await fetch("https://moviesapi.codingfront.dev/api/v1/movies?page={page}");
+    const response = await fetch(`https://moviesapi.codingfront.dev/api/v1/genres/${genre}/movies?page={page}`);
     if(response.ok){
         const result = await response.json();
         console.log(result);

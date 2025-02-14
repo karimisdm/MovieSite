@@ -1,18 +1,10 @@
 <script setup>
 import { ref } from 'vue';
+import ListMovies from './ListView.vue';
 
-// const displayMode = ref("inline");
-// const showMovieGenre = ()=>{
-//   if(displayMode.value === 'inline'){
-//     displayMode.value = none;
-//   }else if(displayMode.value === none){
-//     displayMode.value = 'inline';
-//   }
-//   return displayMode;
-// };
-// console.log(showMovieGenre());
+
 const showMore= ref(true);
-const showOther = ref(false)
+const showOther = ref(false);
 const showMovieGenre = ()=>{
    showMore.value = false;
    setTimeout(()=>{
@@ -37,25 +29,24 @@ const showMovieGenre = ()=>{
       <button class="btn_genre">Biography</button>
       <button v-if="showMore" class="btn_genre showMore" @click="showMovieGenre()">Show More</button>
       <button v-if="!showMore" class="btn_genre">History</button>
-      <button class="btn_genre beforeShow">Adventure</button>
-      <button class="btn_genre beforeShow">Fantasy</button>
-      <button class="btn_genre beforeShow">Western</button>
-      <button class="btn_genre beforeShow">Comedy</button>
-      <button class="btn_genre beforeShow">Sci-Fi</button>
-      <button class="btn_genre beforeShow">Romance</button>
-      <button class="btn_genre beforeShow">Mystery</button>
-      <button class="btn_genre beforeShow">Family</button>
-      <button class="btn_genre beforeShow">War</button>
-      <button class="btn_genre beforeShow">Thriller</button>
-      <button class="btn_genre beforeShow">Horror</button>
-      <button class="btn_genre beforeShow">Music</button>
-      <button class="btn_genre beforeShow">Animation</button>
-      <button class="btn_genre beforeShow">Film-Noir</button>
-      <button class="btn_genre beforeShow">Sport</button>
-
+      <button v-if="!showMore" class="btn_genre">Adventure</button>
+      <button v-if="!showMore" class="btn_genre">Fantasy</button>
+      <button v-if="!showMore" class="btn_genre">Western</button>
+      <button v-if="!showMore" class="btn_genre">Comedy</button>
+      <button v-if="!showMore" class="btn_genre">Sci-Fi</button>
+      <button v-if="!showMore" class="btn_genre">Romance</button>
+      <button v-if="!showMore" class="btn_genre">Mystery</button>
+      <button v-if="!showMore" class="btn_genre">Family</button>
+      <button v-if="!showMore" class="btn_genre">War</button>
+      <button v-if="!showMore" class="btn_genre">Thriller</button>
+      <button v-if="!showMore" class="btn_genre">Horror</button>
+      <button v-if="!showMore" class="btn_genre">Music</button>
+      <button v-if="!showMore" class="btn_genre">Animation</button>
+      <button v-if="!showMore" class="btn_genre">Film-Noir</button>
+      <button v-if="!showMore" class="btn_genre">Sport</button>
     </div>
   </div>
-
+  
 
 </template>
 <style>
@@ -97,7 +88,7 @@ const showMovieGenre = ()=>{
   width: 100%;
   text-align: center;
   margin-top: 25px;
-  padding: 0px 100px;
+  padding: 0px 117px;
 }
 
 .btn_genre {
