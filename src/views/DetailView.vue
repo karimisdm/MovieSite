@@ -1,13 +1,13 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
-const props = defineProps(["id"]);
+const props = defineProps(["key"]);
 
 const id = 1;
 
 const information = ref(null);
 const getInformationMovie = async ()=>{
-    const response= await fetch(`https://moviesapi.codingfront.dev/api/v1/movies/${id}`);
+    const response= await fetch(`https://moviesapi.codingfront.dev/api/v1/movies/${props.key}`);
     if(response.ok){
         const result = await response.json();
         information.value  = result;

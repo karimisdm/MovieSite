@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import Detail from './DetailView.vue';
+import FindMovie from '@/components/FindMovie.vue';
 
 
 
@@ -50,8 +51,8 @@ const getFilteredMovieNames = ()=>{
         </div>
         <div class="movies">
             <ul v-if="detailMovie">
-                <li v-for="movie in detailMovie.data" :id="movie.id">
-                    <div class="movies_detail flex">
+                <li v-for="movie in detailMovie.data">
+                    <div class="movies_detail flex" @click="FindMovie(movie.id)">
                        <img :src="movie.images" class="movies_img"/>
                        <div class="movies_title">
                         <strong>{{ movie.title }}</strong><br/>   
