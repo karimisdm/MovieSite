@@ -1,10 +1,10 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import Detail from './DetailView.vue';
-import FindMovie from '@/components/FindMovie.vue';
+import { useRoute,useRouter } from 'vue-router';
 
 
-
+const router = useRouter();
 const detailMovie = ref(null);
 const getMoviesDetail = async ()=>{
     const response = await fetch("https://moviesapi.codingfront.dev/api/v1/movies?page={page}");
@@ -18,11 +18,9 @@ const getMoviesDetail = async ()=>{
     }
 };
 
-getMoviesDetail();
-
-// onMounted(()=>{
-//     getMoviesDetail();
-// });
+onMounted(()=>{
+    getMoviesDetail();
+});
 
 // it should be improve
 const getFilteredMovieNames = ()=>{
@@ -52,7 +50,8 @@ const getFilteredMovieNames = ()=>{
         <div class="movies">
             <ul v-if="detailMovie">
                 <li v-for="movie in detailMovie.data">
-                    <div class="movies_detail flex" @click="FindMovie(movie.id)">
+                    <RouterLink :to="{name:'detail', params:{id:movie.id} }">
+                    <div class="movies_detail flex">
                        <img :src="movie.images" class="movies_img"/>
                        <div class="movies_title">
                         <strong>{{ movie.title }}</strong><br/>   
@@ -61,7 +60,7 @@ const getFilteredMovieNames = ()=>{
                         <div class="star"></div>
                        </div>   
                     </div>
-                
+                </RouterLink>
                 </li> 
             </ul>
         </div>    

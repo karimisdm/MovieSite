@@ -1,13 +1,14 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import { useRoute,useRouter } from 'vue-router';
 
-const props = defineProps(["key"]);
 
 const id = 1;
-
+const route = useRoute();
+const movieId = route.params.id
 const information = ref(null);
 const getInformationMovie = async ()=>{
-    const response= await fetch(`https://moviesapi.codingfront.dev/api/v1/movies/${props.key}`);
+    const response= await fetch(`https://moviesapi.codingfront.dev/api/v1/movies/${movieId}`);
     if(response.ok){
         const result = await response.json();
         information.value  = result;
