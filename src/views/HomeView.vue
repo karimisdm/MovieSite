@@ -1,4 +1,78 @@
-<script setup>
+
+
+<script>
+import { ref, watch } from 'vue';
+
+export default {
+  name: 'MovieSearch',
+  setup() {
+    const searchQuery = ref('');
+    const movies = ref([]);
+    const isLoading = ref(false);
+    const error = ref(null);
+    let timeoutId = null;
+
+    const searchMovies = async (query) => {
+      if (!query.trim()) {
+        movies.value = [];
+        return;
+      }
+      isLoading.value = true;
+      error.value = null;
+      try {
+        const response = await fetch(`https://moviesapi.codingfront.dev/api/v1/movies?q=${encodeURIComponent(query)}&page={page}`);
+        if (!response.ok) { //200OK
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        movies.value = data;
+      } catch (err) {
+        error.value = 'Error fetching data.';
+        console.error('Error fetching data:', err);
+      } finally {
+        isLoading.value = false;
+      }
+    };
+
+    const debouncedSearch = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        searchMovies(searchQuery.value);
+      }, 300);
+    };
+
+    watch(searchQuery, () => {
+        debouncedSearch()
+    });
+
+    return {
+      searchQuery,
+      movies,
+      isLoading,
+      error,
+      debouncedSearch,
+    };
+  },
+};
+</script>
+
+<template>
+  <div>
+    <input type="text" id="search" v-model="searchQuery" @input="debouncedSearch" placeholder="Search for movies..." />
+    <div v-if="isLoading">Loading...</div>
+    <div v-else-if="error">{{ error }}</div>
+    <div v-else-if="movies.length === 0">No results found.</div>
+    <div v-else>
+      <div v-for="movie in movies" :key="movie.id">
+        <h3>{{ movie.title }}</h3>
+        <p>{{ movie.description }}</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<!-- <script setup>
 import { ref } from 'vue';
 
 
@@ -22,9 +96,9 @@ const getMoviesDetail = async ()=>{
 };
 getMoviesDetail();
 
-</script>
+</script> -->
 
-<template>
+<!-- <template>
   <div class="container">
     <h1 class="site_name">IAMDb</h1>
     <div class="search_bar">
@@ -43,7 +117,7 @@ getMoviesDetail();
     </div>
   </div>
 
-</template>
+</template> -->
 <style>
 .site_name {
   font-family: Inter;
@@ -77,6 +151,13 @@ getMoviesDetail();
   border-radius: 16px;
   background-color: #222C4F;
   border: solid 1px #222C4F;
+}
+
+input#search {
+    padding-left: 48px;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
 }
 
 .genre_movie {
