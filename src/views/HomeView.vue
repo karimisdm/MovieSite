@@ -23,10 +23,10 @@ onMounted(()=>{
   getMovieGenres();
 });
 
-// const getUniqMovieGenre = computed(()=>{
-//   const genres = detailMovie.value.flatMap(movie => movie.genres);
-//   return [...new Set(genres)];
-// })
+const getGenre = computed(()=>{
+  const movieGenre = genres.value.flatMap(movie => movie.name);
+  return [...new Set(movieGenre)];
+})
 
 
 </script>
@@ -40,14 +40,18 @@ onMounted(()=>{
       <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon"/>
     </div>
     
-    <div v-if="genres"  class="genre_movie">
-      {{ genres }}
+    <div v-if="genres">
+      <ul class="flex genre_movie">
+        <li v-for="name in getGenre">
+          <button @click="" class="btn_genre">{{ name }}</button>
+        </li>
+      </ul>
 
     </div>
   </div>
 
 </template>
-<style>
+<style >
 .site_name {
   font-family: Inter;
   font-size: 140px;
