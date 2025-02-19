@@ -4,7 +4,8 @@ import Detail from './DetailView.vue';
 import { useRoute,useRouter } from 'vue-router';
 
 
-const router = useRouter();
+
+const route = useRouter();
 const detailMovie = ref(null);
 const getMoviesDetail = async ()=>{
     const response = await fetch("https://moviesapi.codingfront.dev/api/v1/movies?page={page}");

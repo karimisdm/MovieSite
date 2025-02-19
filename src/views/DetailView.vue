@@ -5,7 +5,7 @@ import { useRoute,useRouter } from 'vue-router';
 
 const id = 1;
 const route = useRoute();
-const movieId = route.params.id
+const movieId = route.params.id;
 const information = ref(null);
 const getInformationMovie = async ()=>{
     const response= await fetch(`https://moviesapi.codingfront.dev/api/v1/movies/${movieId}`);

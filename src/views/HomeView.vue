@@ -1,9 +1,11 @@
 
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch} from 'vue';
+import _ from 'lodash';
+import { useRoute } from 'vue-router';
 
 
-
+const route = useRoute();
 const genres = ref(null);
 const getMovieGenres = async ()=>{
     const response = await fetch("https://moviesapi.codingfront.dev/api/v1/genres");
@@ -21,10 +23,8 @@ onMounted(()=>{
 
 const showMore= ref(false);
 
-//use loadash for this fun
 const getGenre = computed(()=>{
-  const movieGenre = genres.value.flatMap(movie => movie.name);
-  return [...new Set(movieGenre)];
+  return _.uniq(genres.value.flatMap(genre => genre.name));
 });
 
 const displayGenres = computed(()=>{
@@ -34,7 +34,9 @@ const showMovieGenre = ()=>{
    showMore.value = !showMore.value;
 };
 
-
+const FindSpecialGenre = (genre)=>{
+   
+};
 
 </script>
 
@@ -49,8 +51,10 @@ const showMovieGenre = ()=>{
     
     <div v-if="genres" class="buttons_container">
       <ul class="genre_movie">
-        <li v-for="name in displayGenres">
-          <button @click="" class="btn_genre">{{ name }}</button>
+        <li v-for="genre in displayGenres">
+
+           <button @click="FindSpecialGenre(genre)" class="btn_genre">{{ genre }}</button>
+
         </li>
         <li>
           <button  v-if="!showMore" @click="showMovieGenre" class="btn_genre">showMore</button>
