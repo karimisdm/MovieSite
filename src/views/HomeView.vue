@@ -40,8 +40,8 @@ const getGenre = computed(()=>{
       <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon"/>
     </div>
     
-    <div v-if="genres">
-      <ul class="flex genre_movie">
+    <div v-if="genres" class="buttons_container">
+      <ul class="genre_movie">
         <li v-for="name in getGenre">
           <button @click="" class="btn_genre">{{ name }}</button>
         </li>
@@ -86,22 +86,15 @@ const getGenre = computed(()=>{
   border: solid 1px #222C4F;
 }
 
-input#search {
-    padding-left: 48px;
-    font-size: 16px;
-    color: white;
-    font-weight: bold;
-}
-
 .genre_movie {
-  width: 100%;
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 25px;
   padding: 0px 117px;
+  justify-content: center;
 }
 
 .btn_genre {
-  height: 27px;
   padding: 6px 12px 6px 12px;
   border-radius: 8px;
   background-color: #222C4F;
