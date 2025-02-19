@@ -10,7 +10,6 @@ const getMoviesDetail = async ()=>{
     const response = await fetch("https://moviesapi.codingfront.dev/api/v1/movies?page={page}");
     if(response.ok){
         const result = await response.json();
-        console.log(result);
         detailMovie.value = result;
     }else{
         return;
@@ -21,18 +20,6 @@ const getMoviesDetail = async ()=>{
 onMounted(()=>{
     getMoviesDetail();
 });
-
-// it should be improve
-const getFilteredMovieNames = ()=>{
-    const arrName =[];
-    detailMovie.data.foreach((movie)=>{
-        movie.foreach((title)=>{
-            arrName.push(title);
-        });
-    });
-    return arrName;
-}
-
 
 </script>
 <template>

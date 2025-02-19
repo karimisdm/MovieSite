@@ -1,80 +1,6 @@
 
-
-<script>
-import { ref, watch } from 'vue';
-
-export default {
-  name: 'MovieSearch',
-  setup() {
-    const searchQuery = ref('');
-    const movies = ref([]);
-    const isLoading = ref(false);
-    const error = ref(null);
-    let timeoutId = null;
-
-    const searchMovies = async (query) => {
-      if (!query.trim()) {
-        movies.value = [];
-        return;
-      }
-      isLoading.value = true;
-      error.value = null;
-      try {
-        const response = await fetch(`https://moviesapi.codingfront.dev/api/v1/movies?q=${encodeURIComponent(query)}&page={page}`);
-        if (!response.ok) { //200OK
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        movies.value = data;
-      } catch (err) {
-        error.value = 'Error fetching data.';
-        console.error('Error fetching data:', err);
-      } finally {
-        isLoading.value = false;
-      }
-    };
-
-    const debouncedSearch = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        searchMovies(searchQuery.value);
-      }, 300);
-    };
-
-    watch(searchQuery, () => {
-        debouncedSearch()
-    });
-
-    return {
-      searchQuery,
-      movies,
-      isLoading,
-      error,
-      debouncedSearch,
-    };
-  },
-};
-</script>
-
-<template>
-  <div>
-    <input type="text" id="search" v-model="searchQuery" @input="debouncedSearch" placeholder="Search for movies..." />
-    <div v-if="isLoading">Loading...</div>
-    <div v-else-if="error">{{ error }}</div>
-    <div v-else-if="movies.length === 0">No results found.</div>
-    <div v-else>
-      <div v-for="movie in movies" :key="movie.id">
-        <h3>{{ movie.title }}</h3>
-        <p>{{ movie.description }}</p>
-      </div>
-    </div>
-  </div>
-</template>
-
-
-<!-- <script setup>
-import { ref } from 'vue';
-
+<script setup>
+import { computed, onMounted, ref, watch } from 'vue';
 
 
 const showMore= ref(true);
@@ -82,23 +8,30 @@ const showOther = ref(false);
 const showMovieGenre = ()=>{
    showMore.value = !showMore.value;
 };
-const detailMovie = ref(null);
-const getMoviesDetail = async ()=>{
-    const response = await fetch("https://moviesapi.codingfront.dev/api/v1/movies?page={page}");
+const genres = ref(null);
+const getMovieGenres = async ()=>{
+    const response = await fetch("https://moviesapi.codingfront.dev/api/v1/genres");
     if(response.ok){
         const result = await response.json();
-        console.log(result);
-        detailMovie.value = result;
+        genres.value = result;
     }else{
         return;
         
     }
 };
-getMoviesDetail();
+onMounted(()=>{
+  getMovieGenres();
+});
 
-</script> -->
+// const getUniqMovieGenre = computed(()=>{
+//   const genres = detailMovie.value.flatMap(movie => movie.genres);
+//   return [...new Set(genres)];
+// })
 
-<!-- <template>
+
+</script>
+
+<template>
   <div class="container">
     <h1 class="site_name">IAMDb</h1>
     <div class="search_bar">
@@ -107,17 +40,13 @@ getMoviesDetail();
       <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon"/>
     </div>
     
-    <div v-if="detailMovie" class="genre_movie">
-        <ul>
-          <li v-for="genre in detailMovie.genres">
-            <button>{{ genre }}</button>
-          </li>
-        </ul>
+    <div v-if="genres"  class="genre_movie">
+      {{ genres }}
 
     </div>
   </div>
 
-</template> -->
+</template>
 <style>
 .site_name {
   font-family: Inter;
