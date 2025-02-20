@@ -18,6 +18,11 @@ const router = createRouter({
       props: true
     },
     {
+      path: '/list/:value',
+      name: 'lst',
+      component: ListView,
+    },
+    {
       path: '/detail/:id',
       name: 'detail',
       component: DetailView

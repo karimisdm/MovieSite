@@ -6,6 +6,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 
 const router = useRouter();
+const secondRouter = useRouter();
 const genres = ref(null);
 const getMovieGenres = async ()=>{
     const response = await fetch("https://moviesapi.codingfront.dev/api/v1/genres");
@@ -20,6 +21,7 @@ const getMovieGenres = async ()=>{
 onMounted(()=>{
   getMovieGenres();
 });
+
 
 const showMore= ref(false);
 
@@ -38,6 +40,12 @@ const FindSpecialGenre = (genre)=>{
   router.push(`/list/${genre.toLowerCase()}`);
    
 };
+const query = ref("");
+const findMovie = computed(()=>{
+  if(query.value.trim()){
+    secondRouter.push(`/lst/${query.value.trim()}`);
+  }
+});
 
 </script>
 
@@ -46,7 +54,7 @@ const FindSpecialGenre = (genre)=>{
     <h1 class="site_name">IAMDb</h1>
     <div class="search_bar">
       <img src="/public/searchIcon.svg" alt="icon for search" title="search" class="search_icon"/>
-      <input type="text" id="search" name="search" class="search_section" />
+      <input v-model="query" type="text" id="search" name="search" class="search_section" />
       <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon"/>
     </div>
     
