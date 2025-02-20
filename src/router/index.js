@@ -12,9 +12,10 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/list',
+      path: '/list/:genre',
       name: 'list',
       component: ListView,
+      props: true
     },
     {
       path: '/detail/:id',

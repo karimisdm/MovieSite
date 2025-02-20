@@ -1,14 +1,15 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
 import Detail from './DetailView.vue';
 import { useRoute,useRouter } from 'vue-router';
 
 
 
-const route = useRouter();
+const route = useRoute();
 const detailMovie = ref(null);
+const genre = ref(route.params.genre)
 const getMoviesDetail = async ()=>{
-    const response = await fetch("https://moviesapi.codingfront.dev/api/v1/movies?page={page}");
+    const response = await fetch(`https://moviesapi.codingfront.dev/api/v1/genres/${genre.value}/movies?page={page}`);
     if(response.ok){
         const result = await response.json();
         detailMovie.value = result;
@@ -21,6 +22,11 @@ const getMoviesDetail = async ()=>{
 onMounted(()=>{
     getMoviesDetail();
 });
+
+watchEffect(()=>{
+    genre.value = route.params.genre;
+    getMoviesDetail();
+})
 
 </script>
 <template>

@@ -2,10 +2,10 @@
 <script setup>
 import { computed, onMounted, ref, watch} from 'vue';
 import _ from 'lodash';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 
-const route = useRoute();
+const router = useRouter();
 const genres = ref(null);
 const getMovieGenres = async ()=>{
     const response = await fetch("https://moviesapi.codingfront.dev/api/v1/genres");
@@ -35,6 +35,7 @@ const showMovieGenre = ()=>{
 };
 
 const FindSpecialGenre = (genre)=>{
+  router.push(`/list/${genre.toLowerCase()}`);
    
 };
 
