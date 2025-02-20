@@ -23,10 +23,10 @@ onMounted(()=>{
     getMoviesDetail();
 });
 
-watchEffect(()=>{
-    genre.value = route.params.genre;
-    getMoviesDetail();
-})
+// watchEffect(()=>{
+//     genre.value = route.params.genre;
+//     getMoviesDetail();
+// })
 
 </script>
 <template>
