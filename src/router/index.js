@@ -18,7 +18,7 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/list/:value',
+      path: '/lst/:value',
       name: 'lst',
       component: ListView,
     },

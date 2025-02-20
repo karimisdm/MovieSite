@@ -10,7 +10,7 @@ const detailMovie = ref(null);
 const genre = ref(route.params.genre);
 const value = ref(route.params.value);
 const getMoviesDetail = async ()=>{
-    let url = ""
+    let url = "";
     if(genre.value){
         url = `https://moviesapi.codingfront.dev/api/v1/genres/${genre.value}/movies?page={page}`;
 

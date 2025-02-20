@@ -41,11 +41,15 @@ const FindSpecialGenre = (genre)=>{
    
 };
 const query = ref("");
-const findMovie = computed(()=>{
+
+//this section will be improved
+watch(query, (()=>{
   if(query.value.trim()){
     secondRouter.push(`/lst/${query.value.trim()}`);
   }
-});
+}))
+
+// const findMovie = 
 
 </script>
 
