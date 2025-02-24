@@ -3,7 +3,7 @@ import { ref } from "vue";
 
 
 
-const useFetchDataStore = defineStore("",()=>{
+export const useFetchDataStore = defineStore("movieStore",()=>{
 
   const genres = ref(null);
   const getMovieGenres = async ()=>{
@@ -16,7 +16,9 @@ const useFetchDataStore = defineStore("",()=>{
             
         }
     };
-}
-
-)
+    return {
+        genres,
+        getMovieGenres,
+    }
+});
 
