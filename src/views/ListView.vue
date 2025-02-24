@@ -1,11 +1,12 @@
 <script setup>
-import { computed, onMounted, ref, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import Detail from './DetailView.vue';
 import { useRoute,useRouter } from 'vue-router';
 
 
 
 const route = useRoute();
+const router = useRouter();
 const detailMovie = ref(null);
 const genre = ref(route.params.genre);
 const value = ref(route.params.value);
@@ -32,11 +33,15 @@ onMounted(()=>{
     getMoviesDetail();
 });
 
-const searchQuery = ref("");
-const findMovie = computed(()=>{
-     return movies.value.filter((movie) => movie.title.include(searchQuery.value));
-})
 
+const searchQuery = ref("");
+
+const searchMovie = ()=>{
+watch(searchQuery,()=>{
+    router.push(`/lst/${searchQuery.value.trim()}`);
+
+
+});}
 
 // watchEffect(()=>{
 //     genre.value = route.params.genre;
@@ -52,7 +57,7 @@ const findMovie = computed(()=>{
         </div>
         <div class="search_bar">
             <img src="/public/searchIcon.svg" alt="icon for search" title="search" class="search_icon" />
-            <input v-model="searchQuery"  type="text" id="search" name="search" class="search_section" />
+            <input v-model="searchQuery" @keydown.enter="searchMovie()" type="text" id="search" name="search" class="search_section" />
             <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" />
         </div>
         <div class="movies">
