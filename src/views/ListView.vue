@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watchEffect } from 'vue';
+import { computed, onMounted, ref, watchEffect } from 'vue';
 import Detail from './DetailView.vue';
 import { useRoute,useRouter } from 'vue-router';
 
@@ -16,6 +16,8 @@ const getMoviesDetail = async ()=>{
 
     } else if(value.value){
         url = `https://moviesapi.codingfront.dev/api/v1/movies?q=${value.value}&page={page}`;
+    }else if(!genre.value && !value.value){
+        url = "https://moviesapi.codingfront.dev/api/v1/movies?page={page}";
     }
     const response = await fetch(url);
     if(response.ok){
@@ -26,10 +28,15 @@ const getMoviesDetail = async ()=>{
         
     }
 };
-
 onMounted(()=>{
     getMoviesDetail();
 });
+
+const searchQuery = ref("");
+const findMovie = computed(()=>{
+     return movies.value.filter((movie) => movie.title.include(searchQuery.value));
+})
+
 
 // watchEffect(()=>{
 //     genre.value = route.params.genre;
@@ -37,7 +44,7 @@ onMounted(()=>{
 // })
 </script>
 <template>
-    <div v-if="detailMovie" class="container">
+    <div class="container">
         <div class="result">
           <RouterLink to="/"><div class="vector"><img src="/public/angle-left.svg"/></div></RouterLink>  
             <div class="title_res">Result</div>
@@ -45,7 +52,7 @@ onMounted(()=>{
         </div>
         <div class="search_bar">
             <img src="/public/searchIcon.svg" alt="icon for search" title="search" class="search_icon" />
-            <input type="text" id="search" name="search" class="search_section" />
+            <input v-model="searchQuery"  type="text" id="search" name="search" class="search_section" />
             <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" />
         </div>
         <div class="movies">

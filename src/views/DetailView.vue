@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute,useRouter } from 'vue-router';
 
 
-const id = 1;
+
 const route = useRoute();
 const movieId = route.params.id;
 const information = ref(null);
@@ -30,7 +30,7 @@ onMounted(()=>{
     <div class="container">
         <div class="wrapper">
            <div class="flash_back">
-              <RouterLink to="/list"><div class="vector"><img src="/public/angle-left.svg" alt="picture of angle"/></div></RouterLink>   
+              <RouterLink to="/movies"><div class="vector"><img src="/public/angle-left.svg" alt="picture of angle"/></div></RouterLink>   
             </div>
             <div v-if="information" class="flex_detail">
                 <div class="movie_image">  

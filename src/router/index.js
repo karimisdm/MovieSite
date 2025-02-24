@@ -12,6 +12,11 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/movies',
+      name: 'movies',
+      component: ListView
+    },
+    {
       path: '/list/:genre',
       name: 'list',
       component: ListView,
