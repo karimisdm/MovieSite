@@ -49,8 +49,6 @@ watch(query, (()=>{
   }
 }))
 
-// const findMovie = 
-
 </script>
 
 <template>
