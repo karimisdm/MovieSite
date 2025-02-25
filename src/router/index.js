@@ -12,9 +12,10 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/movies',
+      path: '/list',
       name: 'movies',
-      component: ListView
+      component: ListView,
+      props: {genre: null}
     },
     {
       path: '/list/:genre',

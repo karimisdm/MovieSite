@@ -2,6 +2,7 @@
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import Detail from './DetailView.vue';
 import { useRoute,useRouter } from 'vue-router';
+import { useFetchDataStore } from '@/stores/fetchData';
 
 
 
@@ -17,7 +18,8 @@ const getMoviesDetail = async ()=>{
 
     } else if(value.value){
         url = `https://moviesapi.codingfront.dev/api/v1/movies?q=${value.value}&page={page}`;
-    }else if(!genre.value && !value.value){
+    }
+    else if(!genre.value && !value.value){
         url = "https://moviesapi.codingfront.dev/api/v1/movies?page={page}";
     }
     const response = await fetch(url);
@@ -33,20 +35,18 @@ onMounted(()=>{
     getMoviesDetail();
 });
 
+const movieStore = useFetchDataStore()
 
 const searchQuery = ref("");
-
 const searchMovie = ()=>{
-watch(searchQuery,()=>{
-    router.push(`/lst/${searchQuery.value.trim()}`);
+    router.push(`/lst/${searchQuery.value.trim()}`)
+};
+watchEffect(() => {
+  const query = route.params.query; // Get the query from URL
+  searchQuery.value = query || ""; // Keep input field in sync
+  fetchMovies(query);
+});
 
-
-});}
-
-// watchEffect(()=>{
-//     genre.value = route.params.genre;
-//     getMoviesDetail();
-// })
 </script>
 <template>
     <div class="container">
@@ -57,7 +57,7 @@ watch(searchQuery,()=>{
         </div>
         <div class="search_bar">
             <img src="/public/searchIcon.svg" alt="icon for search" title="search" class="search_icon" />
-            <input v-model="searchQuery" @keydown.enter="searchMovie()" type="text" id="search" name="search" class="search_section" />
+            <input v-model="searchQuery" @keyup.enter="searchMovie()" type="text" id="search" name="search" class="search_section" />
             <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" />
         </div>
         <div class="movies">

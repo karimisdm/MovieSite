@@ -1,24 +1,34 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 
 
 export const useFetchDataStore = defineStore("movieStore",()=>{
 
-  const genres = ref(null);
-  const getMovieGenres = async ()=>{
-        const response = await fetch("https://moviesapi.codingfront.dev/api/v1/genres");
+  const allMovies = ref(null);
+  const getMovies = async ()=>{
+        const response = await fetch("https://moviesapi.codingfront.dev/api/v1/movies?page={page}");
         if(response.ok){
             const result = await response.json();
-            genres.value = result;
+            allMovies.value = result.data;
         }else{
             return;
             
         }
     };
+//    const searchQuery = ref("") 
+//    const searchMovieByName = computed((allMovies)=>{
+//      return allMovies.value.filter((movie)=>{
+//           return movie.title.include(searchQuery.value);
+//     })});
+
     return {
-        genres,
-        getMovieGenres,
+        allMovies,
+        getMovies,
+        // searchMovieByName,
+        // searchQuery,
     }
 });
+
+
 
