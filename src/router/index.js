@@ -19,7 +19,7 @@ const router = createRouter({
     },
     {
       path: '/list/:genre',
-      name: 'list',
+      name: 'list-by-genre',
       component: ListView,
       props: true
     },

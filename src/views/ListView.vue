@@ -43,8 +43,12 @@ const debouncedGetMovies = debounce(getMoviesDetail,1000);
 
 watchEffect(() => {
   const query = searchQuery.value.trim();
-  router.push(`/list/${query}`);
+  if(query === ""){
+    router.push('/list');
+  }else {
+  router.push(`/lst/${query}`);
   debouncedGetMovies(query);
+  }
 });
 
 const searchMovie = ()=>{
