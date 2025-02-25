@@ -1,8 +1,8 @@
 <script setup>
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
-import Detail from './DetailView.vue';
 import { useRoute,useRouter } from 'vue-router';
 import { useFetchDataStore } from '@/stores/fetchData';
+import { debounce } from 'lodash';
 
 
 
@@ -38,16 +38,24 @@ onMounted(()=>{
 const movieStore = useFetchDataStore()
 
 const searchQuery = ref("");
+
+const debouncedGetMovies = debounce(getMoviesDetail,1000);
+
+watchEffect(() => {
+  const query = searchQuery.value.trim();
+  router.push(`/list/${query}`);
+  debouncedGetMovies(query);
+});
+
 const searchMovie = ()=>{
     router.push(`/lst/${searchQuery.value.trim()}`)
 };
-watchEffect(() => {
-  const query = route.params.query; // Get the query from URL
-  searchQuery.value = query || ""; // Keep input field in sync
-  fetchMovies(query);
-});
+
 
 </script>
+
+
+
 <template>
     <div class="container">
         <div class="result">
