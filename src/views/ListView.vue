@@ -37,23 +37,40 @@ onMounted(()=>{
 
 const movieStore = useFetchDataStore()
 
-const searchQuery = ref("");
+ const searchQuery = ref("");
 
-const debouncedGetMovies = debounce(getMoviesDetail,1000);
+// const debouncedGetMovies = debounce(getMoviesDetail,1000);
 
-watchEffect(() => {
-  const query = searchQuery.value.trim();
-  if(query === ""){
-    router.push('/list');
-  }else {
-  router.push(`/lst/${query}`);
-  debouncedGetMovies(query);
+// watchEffect(() => {
+//   const query = searchQuery.value.trim();
+//   if(query === ""){
+//     router.replace('/list');
+//   }else {
+//   router.replace(`/lst/${query}`);
+//   debouncedGetMovies(query);
+//   }
+// });
+
+// const searchMovie = ()=>{
+//     router.push(`/lst/${searchQuery.value.trim()}`)
+// };
+const searchMovie = ()=>{
+watch(
+  searchQuery,
+  debounce((newQuery) => {
+    router.replace(`/lst/${newQuery}`); // Update URL without clicking
+    getMoviesDetail(newQuery); // Fetch movies dynamically
+  }, 500) // Debounce to prevent API spam
+);
+}
+
+// **🔥 Load search query from URL on first mount**
+onMounted(() => {
+  if (route.params.query) {
+    searchQuery.value = route.params.query; // Restore search query
+    getMoviesDetail(route.params.query); // Fetch movies immediately
   }
 });
-
-const searchMovie = ()=>{
-    router.push(`/lst/${searchQuery.value.trim()}`)
-};
 
 
 </script>
