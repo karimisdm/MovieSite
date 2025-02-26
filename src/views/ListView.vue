@@ -68,25 +68,25 @@ const searchMovie = computed(() => {
         </div>
         <div class="movies">
             <ul v-if="detailMovie">
-                <li v-for="movie in detailMovie.data" :key="movie.id">
-                    <RouterLink :to="{ name: 'detail', params: { id: movie.id } }">
-                        <div class="movies_detail flex">
-                            <img :src="movie.images" class="movies_img" />
-                            <div class="movies_title">
-                                <strong>{{ movie.title }}</strong><br />
-                                <small>{{ movie.year }}</small><br />
-                                <span class="movies_genre">{{ movie.genres.join(',') }}</span><br />
-                                <div class="star"></div>
-                            </div>
-                        </div>
-                    </RouterLink>
-                    <img src="../assets/images/heart_icon.svg" width="24px" />
-                </li>
+                <li v-for="movie in detailMovie.data">
+                  <RouterLink :to="{name:'detail', params:{id:movie.id} }">
+                    <div class="movies_detail flex">
+                       <img :src="movie.images" class="movies_img"/>
+                       <div class="movies_title">
+                        <strong>{{ movie.title }}</strong><br/>   
+                        <small>{{ movie.year }}</small><br/>
+                        <span class="movies_genre">{{ movie.genres.join(',') }}</span><br/>
+                        <div class="star"></div>
+                       </div>   
+                    </div>
+                  </RouterLink>
+                  <img src="../assets/images/heart_icon.svg" width="24px"/>
+                </li> 
             </ul>
-        </div>
+        </div>    
     </div>
-</template>
 
+</template>
 <style>
 .result {
     width: 100%;
