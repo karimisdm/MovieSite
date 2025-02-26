@@ -5,23 +5,30 @@ export const useFavoriteStore = defineStore("favoriteStore",()=>{
      
     const favoriteItems = ref([]);
 
-    const addFavorite = (movie)=>{
-      favoriteItems.value.push(movie.id);
+    const addFavorite = (movieId) => {
+        if (!favoriteItems.value.includes(movieId)) {
+            favoriteItems.value.push(movieId);
+        }
     };
-    const removeFavorite = (movie)=>{
-        favoriteItems.value.forEach((id)=>{
-            if(id === movie.id){
-                favoriteItems.value.splice(id,1);
-            }
-        })
+
+    const removeFavorite = (movieId) => {
+       favoriteItems.value.forEach((element)=>{
+              if(element === movieId){
+                favoriteItems.value.splice(favoriteItems.value.indexOf(element),1);
+              }});
+
+       }
+
+        // favoriteItems.value = favoriteItems.value.filter((id) => {id !== movieId});
+
+
+    const selectMovies = (movie) => {
+        if (!favoriteItems.value.includes(movie.id)) {
+            addFavorite(movie.id);
+        } else {
+            removeFavorite(movie.id);
+        }
     };
-    const selectMovies = (movie)=>{
-        if(!favoriteItems.value.includes(movie.id)){
-            addFavorite(movie);}
-        else{
-            removeFavorite(movie);
-        }    
-    }
 
     return {
         favoriteItems,
