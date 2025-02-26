@@ -2,6 +2,7 @@
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { debounce } from 'lodash';
+import { useFavoriteStore } from '@/stores/favoriteMovies';
 
 const route = useRoute();
 const router = useRouter();
@@ -52,6 +53,10 @@ const searchMovie = computed(() => {
         router.push(`/lst/${searchQuery.value.trim()}`);
     }
 });
+
+const favoriteStore = useFavoriteStore();
+const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore;
+
 </script>
 
 <template>
@@ -80,7 +85,12 @@ const searchMovie = computed(() => {
                        </div>   
                     </div>
                   </RouterLink>
-                  <img src="../assets/images/heart_icon.svg" width="24px"/>
+                  <button @click ="selectMovies(movie)">
+                   <span v-if="!favoriteItems.includes(movie.id)"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
+                   <span v-else><img src="../assets/images/heartColored_icon.svg"/></span>
+                  </button>
+                  
+                   
                 </li> 
             </ul>
         </div>    
