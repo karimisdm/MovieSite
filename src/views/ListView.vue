@@ -1,74 +1,63 @@
 <script setup>
-import { computed, onMounted, ref, watch, watchEffect } from 'vue';
-import { useRoute,useRouter } from 'vue-router';
-import { useFetchDataStore } from '@/stores/fetchData';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { debounce } from 'lodash';
-
-
 
 const route = useRoute();
 const router = useRouter();
 const detailMovie = ref(null);
 const genre = ref(route.params.genre);
 const value = ref(route.params.value);
-const getMoviesDetail = async ()=>{
-    let url = "";
-    if(genre.value){
-        url = `https://moviesapi.codingfront.dev/api/v1/genres/${genre.value}/movies?page={page}`;
+const searchQuery = ref("");
 
-    } else if(value.value){
-        url = `https://moviesapi.codingfront.dev/api/v1/movies?q=${value.value}&page={page}`;
-    }
-    else if(!genre.value && !value.value){
+const getMoviesDetail = async (query = "") => {
+    let url = "";
+    if (genre.value) {
+        url = `https://moviesapi.codingfront.dev/api/v1/genres/${genre.value}/movies?page={page}`;
+    } else if (query) {
+        url = `https://moviesapi.codingfront.dev/api/v1/movies?q=${query}&page={page}`;
+    } else {
         url = "https://moviesapi.codingfront.dev/api/v1/movies?page={page}";
     }
     const response = await fetch(url);
-    if(response.ok){
+    if (response.ok) {
         const result = await response.json();
         detailMovie.value = result;
-    }else{
+    } else {
         return;
-        
     }
 };
-// onMounted(()=>{
-//     getMoviesDetail();
-// });
-// const searchQuery = ref("");
-// const searchMovie = ()=>{
-//     router.push(`/lst/${searchQuery.value.trim()}`)
-// };
-const searchQuery = ref("");
-watch(
-  searchQuery,
-  async (newQuery) => {
-    if (newQuery.trim()) {
-      router.replace(`/lst/${newQuery}`);
-      await getMoviesDetail(newQuery); 
+
+const debouncedSearch = debounce(async (query) => {
+    if (query.length >= 3) {
+        router.replace(`/lst/${query}`);
+        await getMoviesDetail(query);
     }
-  }
-);
+}, 300);
+
+watch(searchQuery, (newQuery) => {
+    debouncedSearch(newQuery.trim());
+});
 
 onMounted(() => {
     getMoviesDetail();
-  if (route.params.value) {
-    searchQuery.value = route.params.value; 
-    getMoviesDetail(route.params.value); 
-  }
+    if (route.params.value) {
+        searchQuery.value = route.params.value;
+        getMoviesDetail(route.params.value);
+    }
 });
 
-const searchMovie = computed(()=>{
-  if (searchQuery.value.trim()) {
-    router.push(`/lst/${searchQuery.value.trim()}`);
-  }
-}) ;
-
+const searchMovie = computed(() => {
+    if (searchQuery.value.trim()) {
+        router.push(`/lst/${searchQuery.value.trim()}`);
+    }
+});
 </script>
 
 <template>
     <div class="container">
         <div class="result">
-          <RouterLink to="/"><div class="vector"><img src="/public/angle-left.svg"/></div></RouterLink>  
+            <RouterLink to="/"><div class="vector"><img src="/public/angle-left.svg"/></div></RouterLink>
             <div class="title_res">Result</div>
             <div class="space"></div>
         </div>
@@ -79,24 +68,25 @@ const searchMovie = computed(()=>{
         </div>
         <div class="movies">
             <ul v-if="detailMovie">
-                <li v-for="movie in detailMovie.data">
-                    <RouterLink :to="{name:'detail', params:{id:movie.id} }">
-                    <div class="movies_detail flex">
-                       <img :src="movie.images" class="movies_img"/>
-                       <div class="movies_title">
-                        <strong>{{ movie.title }}</strong><br/>   
-                        <small>{{ movie.year }}</small><br/>
-                        <span class="movies_genre">{{ movie.genres.join(',') }}</span><br/>
-                        <div class="star"></div>
-                       </div>   
-                    </div>
-                </RouterLink>
-                </li> 
+                <li v-for="movie in detailMovie.data" :key="movie.id">
+                    <RouterLink :to="{ name: 'detail', params: { id: movie.id } }">
+                        <div class="movies_detail flex">
+                            <img :src="movie.images" class="movies_img" />
+                            <div class="movies_title">
+                                <strong>{{ movie.title }}</strong><br />
+                                <small>{{ movie.year }}</small><br />
+                                <span class="movies_genre">{{ movie.genres.join(',') }}</span><br />
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </RouterLink>
+                    <img src="../assets/images/heart_icon.svg" width="24px" />
+                </li>
             </ul>
-        </div>    
+        </div>
     </div>
-
 </template>
+
 <style>
 .result {
     width: 100%;
