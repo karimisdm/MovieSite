@@ -42,10 +42,10 @@ watch(searchQuery, (newQuery) => {
 
 onMounted(() => {
     getMoviesDetail();
-    // if (route.params.value) {
-    //     searchQuery.value = route.params.value;
-    //     getMoviesDetail(route.params.value);
-    // }
+    if (route.params.value) {
+        searchQuery.value = route.params.value;
+        getMoviesDetail(route.params.value);
+    }
 });
 
 // const searchMovie = computed(() => {
