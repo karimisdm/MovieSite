@@ -85,12 +85,10 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
                        </div>   
                     </div>
                   </RouterLink>
-                  <button @click ="selectMovies(movie)">
+                  <button @click ="selectMovies(movie)" class="btn_favorite">
                    <span v-if="!favoriteItems.includes(movie.id)"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
-                   <span v-else><img src="../assets/images/heartColored_icon.svg"/></span>
-                  </button>
-                  
-                   
+                   <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px"/></span>
+                  </button> 
                 </li> 
             </ul>
         </div>    
@@ -160,5 +158,9 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     height: 14px;
     background-color:#F2C94C;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+.btn_favorite {
+    width: 25px;
+    height: 25px;
 }
 </style>

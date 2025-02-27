@@ -17,11 +17,8 @@ export const useFavoriteStore = defineStore("favoriteStore",()=>{
                 favoriteItems.value.splice(favoriteItems.value.indexOf(element),1);
               }});
 
-       }
-
-        // favoriteItems.value = favoriteItems.value.filter((id) => {id !== movieId});
-
-
+       };
+       
     const selectMovies = (movie) => {
         if (!favoriteItems.value.includes(movie.id)) {
             addFavorite(movie.id);

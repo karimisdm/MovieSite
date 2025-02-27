@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRoute,useRouter } from 'vue-router';
+import { useFavoriteStore } from '@/stores/favoriteMovies';
 
 
 
@@ -19,6 +20,8 @@ const getInformationMovie = async ()=>{
 onMounted(()=>{
     getInformationMovie();
 });
+
+const {favoriteItems,selectMovies}= useFavoriteStore();
 
 </script>
 
@@ -51,7 +54,15 @@ onMounted(()=>{
                     
                 </div>
                 <div class="details">
-                   <strong class="movie_title">{{ information.title }} </strong><br/>
+                    <div class="flex_detail">
+                       <div><strong class="movie_title">{{ information.title }} </strong></div> 
+                       <div>
+                        <button @click ="selectMovies(information)" class="btn_favorite">
+                          <span v-if="!favoriteItems.includes(information.id)"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
+                          <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px"/></span>
+                        </button>
+                       </div> 
+                    </div>
                    <small class="genres">{{ information.genres.join(',') }}</small><br/>
                    <p class="movie_description">{{ information.plot }}</p>
                    <ul class="flex_detail scores">
