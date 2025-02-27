@@ -42,17 +42,17 @@ watch(searchQuery, (newQuery) => {
 
 onMounted(() => {
     getMoviesDetail();
-    if (route.params.value) {
-        searchQuery.value = route.params.value;
-        getMoviesDetail(route.params.value);
-    }
+    // if (route.params.value) {
+    //     searchQuery.value = route.params.value;
+    //     getMoviesDetail(route.params.value);
+    // }
 });
 
-const searchMovie = computed(() => {
-    if (searchQuery.value.trim()) {
-        router.push(`/lst/${searchQuery.value.trim()}`);
-    }
-});
+// const searchMovie = computed(() => {
+//     if (searchQuery.value.trim()) {
+//         router.push(`/lst/${searchQuery.value.trim()}`);
+//     }
+// });
 
 const favoriteStore = useFavoriteStore();
 const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore;
@@ -68,7 +68,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
         </div>
         <div class="search_bar">
             <img src="/public/searchIcon.svg" alt="icon for search" title="search" class="search_icon" />
-            <input v-model="searchQuery" @keyup.enter="searchMovie()" type="text" id="search" name="search" class="search_section" />
+            <input v-model="searchQuery"  type="text" id="search" name="search" class="search_section" />
             <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" />
         </div>
         <div class="movies">
