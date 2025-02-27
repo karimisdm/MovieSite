@@ -57,10 +57,10 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
                     <div class="flex_detail">
                        <div><strong class="movie_title">{{ information.title }} </strong></div> 
                        <div>
-                        <button @click ="selectMovies(information)" class="btn_favorite">
+                        <div @click ="selectMovies(information)" class="favorite">
                           <span v-if="!favoriteItems.includes(information.id)"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
                           <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px"/></span>
-                        </button>
+                        </div>
                        </div> 
                     </div>
                    <small class="genres">{{ information.genres.join(',') }}</small><br/>

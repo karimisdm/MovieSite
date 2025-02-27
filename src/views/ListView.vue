@@ -73,8 +73,8 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
         </div>
         <div class="movies">
             <ul v-if="detailMovie">
-                <li v-for="movie in detailMovie.data">
-                  <RouterLink :to="{name:'detail', params:{id:movie.id} }">
+                <li v-for="movie in detailMovie.data" class="flex_items">
+                  <RouterLink :to="{name:'detail', params:{id:movie.id} }" class="router">
                     <div class="movies_detail flex">
                        <img :src="movie.images" class="movies_img"/>
                        <div class="movies_title">
@@ -85,10 +85,12 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
                        </div>   
                     </div>
                   </RouterLink>
-                  <button @click ="selectMovies(movie)" class="btn_favorite">
-                   <span v-if="!favoriteItems.includes(movie.id)"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
-                   <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px"/></span>
-                  </button> 
+                  <div>
+                    <button @click ="selectMovies(movie)" class="btn_favorite">
+                      <span v-if="!favoriteItems.includes(movie.id)"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
+                      <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px"/></span>
+                    </button> 
+                </div>
                 </li> 
             </ul>
         </div>    
@@ -160,7 +162,16 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 .btn_favorite {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
+    background-color: #070D23;
+    border: #070D23; 
+}
+.flex_items {
+    display: flex;
+    justify-content: space-between;
+}
+.router {
+    text-decoration-line: none;
 }
 </style>
