@@ -77,13 +77,17 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
                   <RouterLink :to="{name:'detail', params:{id:movie.id} }" class="router">
                     <div class="movies_detail flex">
                        <img :src="movie.images" class="movies_img"/>
-                       <div class="movies_title">
-                        <strong>{{ movie.title }}</strong><br/>   
-                        <span class="movies_genre">{{ movie.genres.join(',') }}</span><br/>
-                        <small class="movie_year">{{ movie.year }},</small>
-                        <small class="movie_year">{{ movie.country }},</small>
-                        <small>{{ movie.imdb_rating }}</small>
-                        <div class="star"></div>
+                       <div>
+                         <strong class="movies_title">{{ movie.title }}</strong><br/>
+                         <span class="movies_genre">{{ movie.genres.join(',') }}</span>
+                         <div class="movie_desc flex">
+                            <small class="movie_year">{{ movie.year }},</small>
+                            <small class="movie_year">{{ movie.country }},</small>
+                            <div class="flex">
+                                <div class="star"></div>
+                                <div><small>{{ movie.imdb_rating }}</small></div>
+                            </div>
+                         </div>
                        </div>   
                     </div>
                   </RouterLink>
@@ -140,6 +144,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     width: 137px;
     object-fit: cover;
     border-radius: 18px;
+    height: 100%;
 }
 .movies_title {
     font-size: 28px;
@@ -150,12 +155,14 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
 }
 .movies_detail {
     padding-bottom: 5px;
+    height: 100%;
 }
 .movies_genre {
     font-size: 12px;
     font-weight: 300;
     line-height: 14.52px;
     opacity: 40%;
+    padding: 3px 10px;
 }
 .star {
     width: 14px;
@@ -177,8 +184,10 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     text-decoration-line: none;
     color: white; 
 }
-.movie_year {
+
+.movie_desc {
     font-size: 18px;
     opacity: 80%;
+    padding: 3px 10px;
 }
 </style>
