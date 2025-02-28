@@ -53,6 +53,7 @@ watch(query, (()=>{
 
 <template>
   <div class="container">
+    <div class="main">
     <h1 class="site_name">IAMDb</h1>
     <div class="search_bar">
       <img src="/public/searchIcon.svg" alt="icon for search" title="search" class="search_icon"/>
@@ -72,6 +73,7 @@ watch(query, (()=>{
         </li>
       </ul>
     </div>
+  </div>
   </div>
 
 </template>
@@ -133,6 +135,9 @@ watch(query, (()=>{
 }
 .beforeShow {
   display: none;
+}
+.main {
+  margin-top: 20%;
 }
 
 @media (max-width:500px) {

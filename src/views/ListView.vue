@@ -79,8 +79,10 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
                        <img :src="movie.images" class="movies_img"/>
                        <div class="movies_title">
                         <strong>{{ movie.title }}</strong><br/>   
-                        <small>{{ movie.year }}</small><br/>
                         <span class="movies_genre">{{ movie.genres.join(',') }}</span><br/>
+                        <small class="movie_year">{{ movie.year }},</small>
+                        <small class="movie_year">{{ movie.country }},</small>
+                        <small>{{ movie.imdb_rating }}</small>
                         <div class="star"></div>
                        </div>   
                     </div>
@@ -140,7 +142,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     border-radius: 18px;
 }
 .movies_title {
-    /* font-size: 28px; */
+    font-size: 28px;
     font-weight: 700;
     line-height: 33.89px;
     text-align: left;
@@ -173,5 +175,10 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
 }
 .router {
     text-decoration-line: none;
+    color: white; 
+}
+.movie_year {
+    font-size: 18px;
+    opacity: 80%;
 }
 </style>
