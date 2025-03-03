@@ -77,7 +77,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
                   <RouterLink :to="{name:'detail', params:{id:movie.id} }" class="router">
                     <div class="movies_detail flex">
                        <img :src="movie.images" class="movies_img"/>
-                       <div>
+                       <div  class="movies_information">
                          <strong class="movies_title">{{ movie.title }}</strong><br/>
                          <span class="movies_genre">{{ movie.genres.join(',') }}</span>
                          <div class="movie_desc flex">
@@ -151,7 +151,6 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     font-weight: 700;
     line-height: 33.89px;
     text-align: left;
-    padding: 3px 10px;
 }
 .movies_detail {
     padding-bottom: 5px;
@@ -162,7 +161,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     font-weight: 300;
     line-height: 14.52px;
     opacity: 40%;
-    padding: 3px 10px;
+    
 }
 .star {
     width: 14px;
@@ -188,6 +187,9 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
 .movie_desc {
     font-size: 18px;
     opacity: 80%;
-    padding: 3px 10px;
+}
+.movies_information {
+    padding: 3px 15px;
+    margin-top: 13px;
 }
 </style>
