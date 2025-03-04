@@ -48,12 +48,6 @@ onMounted(() => {
     }
 });
 
-// const searchMovie = computed(() => {
-//     if (searchQuery.value.trim()) {
-//         router.push(`/lst/${searchQuery.value.trim()}`);
-//     }
-// });
-
 const favoriteStore = useFavoriteStore();
 const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore;
 
@@ -76,14 +70,16 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
                 <li v-for="movie in detailMovie.data" class="flex_items">
                   <RouterLink :to="{name:'detail', params:{id:movie.id} }" class="router">
                     <div class="movies_detail flex">
-                       <img :src="movie.images" class="movies_img"/>
-                       <div  class="movies_information">
-                         <strong class="movies_title">{{ movie.title }}</strong><br/>
-                         <span class="movies_genre">{{ movie.genres.join(',') }}</span>
-                         <div class="movie_desc flex">
-                            <small class="movie_year">{{ movie.year }},</small>
-                            <small class="movie_year">{{ movie.country }},</small>
-                            <div class="flex">
+                       <div><img :src="movie.images" class="movies_img"/></div>
+                       <div class="movies_information">
+                         <div><strong class="movies_title">{{ movie.title }}</strong></div>
+                         <div><span class="movies_genre">{{ movie.genres.join(',') }}</span></div> 
+                         <div class="movie_desc flex_desc">
+                            <small class="movie_year">{{ movie.year }}</small>
+                            <div class="circle"></div>
+                            <small class="movie_year">{{ movie.country }}</small>
+                            <div class="circle"></div>
+                            <div class="flex_star">
                                 <div class="star"></div>
                                 <div><small>{{ movie.imdb_rating }}</small></div>
                             </div>
@@ -163,11 +159,16 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     opacity: 40%;
     
 }
+.flex_star {
+    display: flex;
+    align-items: center;
+}
 .star {
     width: 14px;
     height: 14px;
     background-color:#F2C94C;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    margin-right: 3px;
 }
 .btn_favorite {
     width: 30px;
@@ -187,9 +188,21 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
 .movie_desc {
     font-size: 18px;
     opacity: 80%;
+    margin-top: 12px;
 }
 .movies_information {
     padding: 3px 15px;
     margin-top: 13px;
+}
+.flex_desc {
+    display: flex;
+    align-items: center;
+}
+.circle {
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+    background-color: #222C4F;
+    margin: 0 15px;   
 }
 </style>
