@@ -42,7 +42,7 @@ const FindSpecialGenre = (genre)=>{
 };
 const query = ref("");
 
-//this section will be improved
+//TODO: this section will be improved
 watch(query, (()=>{
   if(query.value.trim() && query.value.length >=4){
     secondRouter.push(`/lst/${query.value.trim()}`);

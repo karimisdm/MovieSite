@@ -20,18 +20,25 @@ const getMoviesDetail = async (query = "") => {
     } else {
         url = "https://moviesapi.codingfront.dev/api/v1/movies?page={page}";
     }
-    const response = await fetch(url);
-    if (response.ok) {
-        const result = await response.json();
-        detailMovie.value = result;
-    } else {
-        return;
+
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            const result = await response.json();
+            detailMovie.value = result;
+        } else {
+            console.error("Failed to fetch movies:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error fetching movies:", error);
     }
 };
 
 const debouncedSearch = debounce(async (query) => {
-    if (query.length >= 3) {
-        router.replace(`/lst/${query}`);
+    if (query.length == 0) {
+        await getMoviesDetail('');
+        //router.replace(`/lst/${query}`);
+    } else {
         await getMoviesDetail(query);
     }
 }, 300);
