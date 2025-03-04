@@ -157,7 +157,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     font-weight: 300;
     line-height: 14.52px;
     opacity: 40%;
-    
+    margin-top: -8px;   
 }
 .flex_star {
     display: flex;
