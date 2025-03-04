@@ -32,26 +32,24 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     </div>
     <div class="container">
         <div class="wrapper">
-           <div class="flash_back">
+           <div class="flash_back return_section">
               <RouterLink to="/list"><div class="vector"><img src="/public/angle-left.svg" alt="picture of angle"/></div></RouterLink>   
             </div>
             <div v-if="information" class="flex_detail">
                 <div class="movie_image">  
                     <img :src="information.poster" alt="pic of movie"/>
-                    <div class="flex">
+                    <div class="flex_bar">
                         <div class="progress_bar">
                             <span class="number">{{ information.imdb_rating }}</span>
                             <svg width="150px" height="150px" class="circle">
                                <circle cx="75" cy="75" r="65" stroke="#724CF9" stroke-width="20" fill="none" :stroke-dashoffset="(information.imdb_rating * 100)"/>
                             </svg>
-
                         </div>
                         <div class="rate">
                             <span class="votes">{{ information.imdb_votes }}</span>
                             <p class="text_vote">rating on IMDB</p>
                         </div>
-                    </div>
-                    
+                    </div> 
                 </div>
                 <div class="details">
                     <div class="flex_detail">
@@ -63,7 +61,7 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
                         </div>
                        </div> 
                     </div>
-                   <small class="genres">{{ information.genres.join(',') }}</small><br/>
+                   <div class="genres"><small>{{ information.genres.join(',') }}</small></div>
                    <p class="movie_description">{{ information.plot }}</p>
                    <ul class="flex_detail scores">
                     <li class="movie_history">{{ information.rated }}</li>
@@ -122,14 +120,16 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
 .flesh_back {
     width: 100%;
 }
+.return_section {
+    margin-bottom: 200px;
+}
 .flex_detail {
     display: flex;
     justify-content: space-between;
 }
 .details {
     flex-grow: 2;
-    padding-left: 25px;
-    margin-top: 220px;
+    padding-left: 30px;
 }
 .text_Detail {
     font-weight: 700;
@@ -145,7 +145,6 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
 }
 .movie_image {
     flex-grow: 1;
-    margin-top: 220px;
 }
 .movie_image img{
    width: 235px;
@@ -153,7 +152,7 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
    border-radius: 18px;
 }
 .scores {
-    width: 224px;
+    width: 240px;
 }
 .movie_history {
     font-weight: 400;
@@ -173,6 +172,11 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     line-height: 24px;
     text-align: justify;
     color: #FFFFFF99;
+}
+.flex_bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 /* progress bar*/
 .progress_bar {
@@ -277,6 +281,7 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     font-size: 12px;
     line-height: 14.52px;
     opacity: 40%;
+    margin-top: -5px;
 }
 
 
