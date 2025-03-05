@@ -70,9 +70,15 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
                    <ul class="flex_detail scores">
                     <li class="movie_history">{{ information.rated }}</li>
                     <li class="movie_history">{{ information.released }}</li>
-                    <li class="movie_history">{{ information.runtime }}</li>
+                    <li class="movie_history">
+                        <div class="flex_detail">
+                            <div class="clock_icon"><img src="../assets/images/clock.svg"/></div>
+                            <div>{{ information.runtime }}</div> 
+                        </div>
+                        
+                    </li>
                    </ul>
-                   <div>
+                   <div class="detail_box">
                     <strong class="text_Detail">Details</strong>
                     <ul class="costs">
                         <li>
@@ -130,6 +136,9 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
 .flex_detail {
     display: flex;
     justify-content: space-between;
+}
+.detail_box {
+    margin-top: 20px;
 }
 .details {
     flex-grow: 2;
@@ -236,7 +245,7 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     margin-top: 10px;
 }
 .costs li {
-    padding-top: 7px;
+    padding-top: 20px;
     padding-bottom: 7px;
 }
 
@@ -298,6 +307,9 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     line-height: 24px;
     opacity: 50%;
     margin-top: 20px;
+}
+.clock_icon {
+    padding-right: 4px;
 }
 
 
