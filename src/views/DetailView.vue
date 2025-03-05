@@ -41,14 +41,18 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
                     <div class="flex_bar">
                         <div class="progress_bar">
                             <span class="number">{{ information.imdb_rating }}</span>
-                            <svg width="150px" height="150px" class="circle">
-                               <circle cx="75" cy="75" r="65" stroke="#724CF9" stroke-width="20" fill="none" :stroke-dashoffset="(information.imdb_rating * 100)"/>
+                            <svg width="100px" height="100px" class="box">
+                              <circle cx="50" cy="50" r="40" stroke="#724CF9" stroke-width="20" fill="none" :stroke-dashoffset="(251 - (information.imdb_rating / 10) * 251)"/>
                             </svg>
                         </div>
                         <div class="rate">
                             <span class="votes">{{ information.imdb_votes }}</span>
                             <p class="text_vote">rating on IMDB</p>
                         </div>
+                    </div>
+                    <div class="metrics">
+                       <p> {{Math.round(information.imdb_rating*10)}}% on Rotten Tomatoes</p>
+                       <p>{{ information.metascore}}/100 on Metacritic</p>
                     </div> 
                 </div>
                 <div class="details">
@@ -117,11 +121,11 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     
 </template>
 <style scoped>
-.flesh_back {
+.flash_back {
     width: 100%;
 }
 .return_section {
-    margin-bottom: 200px;
+    margin-bottom: 220px;
 }
 .flex_detail {
     display: flex;
@@ -177,12 +181,13 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 22px;
 }
 /* progress bar*/
 .progress_bar {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     color: grey;
     outline: 2px solid #724CF9;
@@ -197,8 +202,8 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
 }
 .progress_bar::after {
     content: '';
-    width: 110px;
-    height: 110px;
+    width: 60px;
+    height: 60px;
     border-radius: inherit;
     outline: inherit;
 }
@@ -210,13 +215,14 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     text-align: center;
     color: white;
 }
-.circle {
-    stroke-dasharray: 410;
+.box {
+    stroke-dasharray: 251;
     transform: rotate(-90deg);
     animation: 2s linear forwards;
 }
 .votes {
     font-size: 16px;
+    opacity: 80%;
 }
 .text_vote {
     font-size: 14px;
@@ -282,6 +288,16 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     line-height: 14.52px;
     opacity: 40%;
     margin-top: -5px;
+}
+.favorite {
+    margin-top: 22px;
+}
+.metrics {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 24px;
+    opacity: 50%;
+    margin-top: 20px;
 }
 
 

@@ -83,9 +83,9 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
                          <div><span class="movies_genre">{{ movie.genres.join(',') }}</span></div> 
                          <div class="movie_desc flex_desc">
                             <small class="movie_year">{{ movie.year }}</small>
-                            <div class="circle"></div>
+                            <div class="dot"></div>
                             <small class="movie_year">{{ movie.country }}</small>
-                            <div class="circle"></div>
+                            <div class="dot"></div>
                             <div class="flex_star">
                                 <div class="star"></div>
                                 <div><small>{{ movie.imdb_rating }}</small></div>
@@ -205,7 +205,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     display: flex;
     align-items: center;
 }
-.circle {
+.dot {
     width: 6px;
     height: 6px;
     border-radius: 100%;
