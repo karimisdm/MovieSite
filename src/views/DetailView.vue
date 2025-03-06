@@ -312,5 +312,4 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     padding-right: 4px;
 }
 
-
 </style>

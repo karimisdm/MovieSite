@@ -148,6 +148,9 @@ watch(query, (()=>{
   .genre_movie {
     padding: 0px 10px;
   }
+  .main {
+    margin-top: 1%;
+  }
 
   
 }

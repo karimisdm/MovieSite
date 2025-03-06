@@ -80,7 +80,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
                        <div><img :src="movie.images" class="movies_img"/></div>
                        <div class="movies_information">
                          <div><strong class="movies_title">{{ movie.title }}</strong></div>
-                         <div><span class="movies_genre">{{ movie.genres.join(',') }}</span></div> 
+                         <div class="movies_genre"><span>{{ movie.genres.join(',') }}</span></div> 
                          <div class="movie_desc flex_desc">
                             <small class="movie_year">{{ movie.year }}</small>
                             <div class="dot"></div>
@@ -164,7 +164,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     font-weight: 300;
     line-height: 14.52px;
     opacity: 40%;
-    margin-top: -8px;   
+    margin-top: -2px;   
 }
 .flex_star {
     display: flex;
@@ -211,5 +211,36 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     border-radius: 100%;
     background-color: #222C4F;
     margin: 0 15px;   
+}
+@media (max-width:500px) {
+    .movies_title {
+        font-size: 24px;
+    }
+    .movies_img {
+        width: 122px;
+        height: 123px;
+    }
+    .movie_desc {
+        margin-top: 10px;
+    }
+    .movies li {
+        height: auto;
+        margin-top: 0px;
+        padding: 17px 7px
+    }
+    .flex_desc {
+        flex-wrap: wrap;
+    }
+    .movies_information {
+        margin-top: 0px;
+    }
+    .btn_favorite {
+        width: 24px;
+        height: 24px;
+    }
+    .result {
+        margin-top: 17px;
+    }
+
 }
 </style>
