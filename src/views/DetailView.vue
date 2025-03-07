@@ -37,7 +37,8 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
             </div>
             <div v-if="information" class="flex_items">
                 <div class="movie_image">  
-                    <img :src="information.poster" alt="pic of movie"/>
+                    <div><img :src="information.poster" alt="pic of movie"/></div>
+                    <div class="vote_box">
                     <div class="flex_bar">
                         <div class="progress_bar">
                             <span class="number">{{ information.imdb_rating }}</span>
@@ -55,12 +56,13 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
                        <p>{{ information.metascore}}/100 on Metacritic</p>
                     </div> 
                 </div>
+                </div>
                 <div class="details">
                     <div class="flex_detail">
                        <div><strong class="movie_title">{{ information.title }} </strong></div> 
                        <div>
                         <div @click ="selectMovies(information)" class="favorite">
-                          <span v-if="!favoriteItems.includes(information.id)"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
+                          <span v-if="!favoriteItems.includes(information.id)" class="icon_fav"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
                           <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px"/></span>
                         </div>
                        </div> 
@@ -323,9 +325,30 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
         top: 0;
         left: 0;
         right: 0;
+        padding: 0 7px;
     }
     .detail_box {
         display: none;
+    }
+    .movie_image {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .icon_fav {
+        display: none;
+    }
+    .details {    
+        padding: 0;
+    }
+    .vote_box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .movie_image img {
+        width: 100%;
+        height: auto;
     }
   
 
