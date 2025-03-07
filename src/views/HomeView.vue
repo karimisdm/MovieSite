@@ -47,6 +47,7 @@ onMounted(()=>{
     const t = Array.from(evt.results).map(result => result[0]).map(result => result.transcript).join('');
 
     transcript.value = t ;
+    query.value = t;
   }
 });
 
@@ -93,7 +94,7 @@ const ToggleMic = ()=>{
     <h1 class="site_name">IAMDb</h1>
     <div class="search_bar">
       <img src="/public/searchIcon.svg" alt="icon for search" title="search" class="search_icon"/>
-      <input v-model="query" type="text" id="search" name="search" class="search_section" v-text="transcript" />
+      <input v-model="query" type="text" id="search" name="search" class="search_section"/>
       {{transcript}}
       <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" @click="ToggleMic"/>
     </div>
