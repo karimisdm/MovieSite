@@ -58,10 +58,11 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
                 </div>
                 </div>
                 <div class="details">
-                    <div class="flex_detail">
+                    <div class="flex_items">
                        <div><strong class="movie_title">{{ information.title }} </strong></div> 
                        <div>
                         <div @click ="selectMovies(information)" class="favorite">
+                          <span class="btn_fav">add favorite</span>  
                           <span v-if="!favoriteItems.includes(information.id)" class="icon_fav"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
                           <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px"/></span>
                         </div>
@@ -313,6 +314,9 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
 .clock_icon {
     padding-right: 4px;
 }
+.btn_fav {
+    display: none;
+}
 
 @media (max-width:500px){
     .dynamic_image {
@@ -349,6 +353,19 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     .movie_image img {
         width: 100%;
         height: auto;
+    }
+    .favorite {
+        width: 376px;
+        height: 40px;
+        background-color: #724CF9;
+        position: fixed;
+        bottom: 5px;
+        border-radius: 12px;
+        padding: 12px 24px;
+        text-align: center;
+    }
+    .btn_fav {
+        display: contents;
     }
   
 
