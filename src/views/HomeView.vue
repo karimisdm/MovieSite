@@ -144,6 +144,9 @@ const ToggleMic = ()=>{
   border-radius: 16px;
   background-color: #222C4F;
   border: solid 1px #222C4F;
+  font-size: 18px;
+  color: white;
+  padding-left: 37px;
 }
 
 .genre_movie {

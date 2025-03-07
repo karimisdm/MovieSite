@@ -367,6 +367,10 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     .btn_fav {
         display: contents;
     }
+    .return_section {
+        margin-bottom: 120px;
+        margin-top: 20px;
+    }
   
 
 }
