@@ -10,7 +10,6 @@ const secondRouter = useRouter();
 const genres = ref(null);
 const transcript = ref('');
 const isRecording = ref(false);
-
 const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const sr = new Recognition();
 
@@ -33,18 +32,15 @@ onMounted(()=>{
   sr.interimResults = true;
 
   sr.onstart = ()=>{
-    console.log('SR started');
     isRecording.value = true;
   };
 
   sr.onend = ()=>{
-    console.log('SR stopped');
     isRecording.value = false;
   };
 
   sr.onresult = (evt)=> {
-    console.log('recording');
-    const t = Array.from(evt.results).map(result => result[0]).map(result => result.transcript).join('');
+    const t = Array.from(evt.results).map(result => result[0]).map(result => result.transcript).join(' ');
 
     transcript.value = t ;
     query.value = t;
