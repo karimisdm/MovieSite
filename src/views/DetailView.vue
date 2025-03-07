@@ -35,7 +35,7 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
            <div class="flash_back return_section">
               <RouterLink to="/list"><div class="vector"><img src="/public/angle-left.svg" alt="picture of angle"/></div></RouterLink>   
             </div>
-            <div v-if="information" class="flex_detail">
+            <div v-if="information" class="flex_items">
                 <div class="movie_image">  
                     <img :src="information.poster" alt="pic of movie"/>
                     <div class="flex_bar">
@@ -296,7 +296,7 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     font-size: 12px;
     line-height: 14.52px;
     opacity: 40%;
-    margin-top: -5px;
+    margin-top: -4px;
 }
 .favorite {
     margin-top: 22px;
@@ -312,4 +312,22 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
     padding-right: 4px;
 }
 
+@media (max-width:500px){
+    .dynamic_image {
+        margin-top: 0px;
+    }
+    .flex_items {
+        flex-direction: column-reverse;
+    }
+    .wrapper {
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+    .detail_box {
+        display: none;
+    }
+  
+
+}
 </style>
