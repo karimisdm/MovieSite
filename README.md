@@ -2,6 +2,15 @@
 
 This template should help get you started developing with Vue 3 in Vite.
 
+## Demo 
+### Home Page
+![alt text](home-page.png)
+
+### Movies List
+![alt text](movie-list.png)
+
+### Movie Details
+![alt text](movie-details.png)
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).

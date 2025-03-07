@@ -96,7 +96,9 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
                   </RouterLink>
                   <div>
                     <button @click ="selectMovies(movie)" class="btn_favorite">
-                      <span v-if="!favoriteItems.includes(movie.id)"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
+                      <span v-if="!favoriteItems.includes(movie.id)">
+                        <img src="../assets/images/heart_icon.svg" width="24px"/>
+                      </span> 
                       <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px"/></span>
                     </button> 
                 </div>
