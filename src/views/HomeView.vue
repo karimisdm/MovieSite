@@ -8,6 +8,14 @@ import { useRoute, useRouter } from 'vue-router';
 const router = useRouter();
 const secondRouter = useRouter();
 const genres = ref(null);
+const transcript = ref('');
+const isRecording = ref(false);
+
+const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const sr = new Recognition();
+
+
+
 const getMovieGenres = async ()=>{
     const response = await fetch("https://moviesapi.codingfront.dev/api/v1/genres");
     if(response.ok){
@@ -20,6 +28,26 @@ const getMovieGenres = async ()=>{
 };
 onMounted(()=>{
   getMovieGenres();
+
+  sr.continuous = true;
+  sr.interimResults = true;
+
+  sr.onstart = ()=>{
+    console.log('SR started');
+    isRecording.value = true;
+  };
+
+  sr.onend = ()=>{
+    console.log('SR stopped');
+    isRecording.value = false;
+  };
+
+  sr.onresult = (evt)=> {
+    console.log('recording');
+    const t = Array.from(evt.results).map(result => result[0]).map(result => result.transcript).join('');
+
+    transcript.value = t ;
+  }
 });
 
 
@@ -42,12 +70,20 @@ const FindSpecialGenre = (genre)=>{
 };
 const query = ref("");
 
-//TODO: this section will be improved
 watch(query, (()=>{
-  if(query.value.trim() && query.value.length >=4){
+  if(query.value.trim() && query.value.length >=3){
     secondRouter.push(`/lst/${query.value.trim()}`);
   }
-}))
+}));
+
+const ToggleMic = ()=>{
+  if(isRecording.value){
+    sr.stop();
+  }else {
+    sr.start();
+  }
+};
+
 
 </script>
 
@@ -57,8 +93,9 @@ watch(query, (()=>{
     <h1 class="site_name">IAMDb</h1>
     <div class="search_bar">
       <img src="/public/searchIcon.svg" alt="icon for search" title="search" class="search_icon"/>
-      <input v-model="query" type="text" id="search" name="search" class="search_section" />
-      <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon"/>
+      <input v-model="query" type="text" id="search" name="search" class="search_section" v-text="transcript" />
+      {{transcript}}
+      <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" @click="ToggleMic"/>
     </div>
     
     <div v-if="genres" class="buttons_container">
