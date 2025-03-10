@@ -107,6 +107,9 @@ const ToggleMic = ()=>{
         </li>
       </ul>
     </div>
+    <div v-else class="loading">
+          is Loading...
+    </div>
   </div>
   </div>
 
@@ -175,6 +178,10 @@ const ToggleMic = ()=>{
 }
 .main {
   margin-top: 20%;
+}
+.loading {
+  text-align: center;
+  padding-top: 15px;
 }
 
 @media (max-width:500px) {

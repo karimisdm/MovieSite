@@ -183,7 +183,10 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     width: 30px;
     height: 30px;
     background-color: #070D23;
-    border: #070D23; 
+    border: #070D23;
+}
+.btn_favorite:hover img{
+   background-image: url(../assets/images/icon.svg);
 }
 .flex_items {
     display: flex;

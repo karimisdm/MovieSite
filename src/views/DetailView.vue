@@ -26,108 +26,111 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
 </script>
 
 <template>
-    <div class="image_header" v-if="information">
-        <img :src="information.images" alt="picture of movie" class="dynamic_image"/>
-        <div class="gradient_header"></div>
-    </div>
-    <div class="container">
-        <div class="wrapper">
-           <div class="flash_back return_section">
-              <RouterLink to="/list"><div class="vector"><img src="/public/angle-left.svg" alt="picture of angle"/></div></RouterLink>   
-            </div>
-            <div v-if="information" class="flex_items">
-                <div class="movie_image">  
-                    <div><img :src="information.poster" alt="pic of movie"/></div>
-                    <div class="vote_box">
-                    <div class="flex_bar">
-                        <div class="progress_bar">
-                            <span class="number">{{ information.imdb_rating }}</span>
-                            <svg width="100px" height="100px" class="box">
-                              <circle cx="50" cy="50" r="40" stroke="#724CF9" stroke-width="20" fill="none" :stroke-dashoffset="(251 - (information.imdb_rating / 10) * 251)"/>
-                            </svg>
-                        </div>
-                        <div class="rate">
-                            <span class="votes">{{ information.imdb_votes }}</span>
-                            <p class="text_vote">rating on IMDB</p>
-                        </div>
-                    </div>
-                    <div class="metrics">
-                       <p> {{Math.round(information.imdb_rating*10)}}% on Rotten Tomatoes</p>
-                       <p>{{ information.metascore}}/100 on Metacritic</p>
-                    </div> 
+    <div v-if="information">
+        <div class="image_header">
+            <img :src="information.images" alt="picture of movie" class="dynamic_image"/>
+            <div class="gradient_header"></div>
+        </div>
+        <div class="container">
+            <div class="wrapper">
+            <div class="flash_back return_section">
+                <RouterLink to="/list"><div class="vector"><img src="/public/angle-left.svg" alt="picture of angle"/></div></RouterLink>   
                 </div>
-                </div>
-                <div class="details">
-                    <div class="flex_items">
-                       <div><strong class="movie_title">{{ information.title }} </strong></div> 
-                       <div>
-                        <div @click ="selectMovies(information)" class="favorite">
-                          <span class="btn_fav">add favorite</span>  
-                          <span v-if="!favoriteItems.includes(information.id)" class="icon_fav"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
-                          <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px"/></span>
+                <div class="flex_items">
+                    <div class="movie_image">  
+                        <div><img :src="information.poster" alt="pic of movie"/></div>
+                        <div class="vote_box">
+                        <div class="flex_bar">
+                            <div class="progress_bar">
+                                <span class="number">{{ information.imdb_rating }}</span>
+                                <svg width="100px" height="100px" class="box">
+                                <circle cx="50" cy="50" r="40" stroke="#724CF9" stroke-width="20" fill="none" :stroke-dashoffset="(251 - (information.imdb_rating / 10) * 251)"/>
+                                </svg>
+                            </div>
+                            <div class="rate">
+                                <span class="votes">{{ information.imdb_votes }}</span>
+                                <p class="text_vote">rating on IMDB</p>
+                            </div>
                         </div>
-                       </div> 
+                        <div class="metrics">
+                        <p> {{Math.round(information.imdb_rating*10)}}% on Rotten Tomatoes</p>
+                        <p>{{ information.metascore}}/100 on Metacritic</p>
+                        </div> 
                     </div>
-                   <div class="genres"><small>{{ information.genres.join(',') }}</small></div>
-                   <p class="movie_description">{{ information.plot }}</p>
-                   <ul class="flex_detail scores">
-                    <li class="movie_history">{{ information.rated }}</li>
-                    <li class="movie_history">{{ information.released }}</li>
-                    <li class="movie_history">
-                        <div class="flex_detail">
-                            <div class="clock_icon"><img src="../assets/images/clock.svg"/></div>
-                            <div>{{ information.runtime }}</div> 
+                    </div>
+                    <div class="details">
+                        <div class="flex_items">
+                        <div><strong class="movie_title">{{ information.title }} </strong></div> 
+                        <div>
+                            <div @click ="selectMovies(information)" class="favorite">
+                            <span class="btn_fav">add favorite</span>  
+                            <span v-if="!favoriteItems.includes(information.id)" class="icon_fav"><img src="../assets/images/heart_icon.svg" width="24px"/></span> 
+                            <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px"/></span>
+                            </div>
+                        </div> 
                         </div>
-                        
-                    </li>
-                   </ul>
-                   <div class="detail_box">
-                    <strong class="text_Detail">Details</strong>
-                    <ul class="costs">
-                        <li>
+                    <div class="genres"><small>{{ information.genres.join(',') }}</small></div>
+                    <p class="movie_description">{{ information.plot }}</p>
+                    <ul class="flex_detail scores">
+                        <li class="movie_history">{{ information.rated }}</li>
+                        <li class="movie_history">{{ information.released }}</li>
+                        <li class="movie_history">
                             <div class="flex_detail">
-                                <div class="costs_text">Directors</div>
-                                <div class="costs_name">{{ information.director }}</div>
+                                <div class="clock_icon"><img src="../assets/images/clock.svg"/></div>
+                                <div>{{ information.runtime }}</div> 
                             </div>
-                        </li>
-                        <li>
-                            <div class="flex_detail">
-                                <div class="costs_text">Writers</div>
-                                <div class="costs_name">{{ information.writer }}</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="flex_detail">
-                                <div class="costs_text">Actors</div>
-                                <div class="costs_name">{{ information.actors }}</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="flex_detail">
-                                <div class="costs_text">Country</div>
-                                <div class="costs_name">{{ information.country }}</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="flex_detail">
-                                <div class="costs_text">Language</div>
-                                <div class="costs_name">{{ information.language }}</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="flex_detail">
-                                <div class="costs_text">Awards</div>
-                                <div class="costs_name">{{ information.awards }}</div>
-                            </div>
+                            
                         </li>
                     </ul>
-                   </div>
+                    <div class="detail_box">
+                        <strong class="text_Detail">Details</strong>
+                        <ul class="costs">
+                            <li>
+                                <div class="flex_detail">
+                                    <div class="costs_text">Directors</div>
+                                    <div class="costs_name">{{ information.director }}</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex_detail">
+                                    <div class="costs_text">Writers</div>
+                                    <div class="costs_name">{{ information.writer }}</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex_detail">
+                                    <div class="costs_text">Actors</div>
+                                    <div class="costs_name">{{ information.actors }}</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex_detail">
+                                    <div class="costs_text">Country</div>
+                                    <div class="costs_name">{{ information.country }}</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex_detail">
+                                    <div class="costs_text">Language</div>
+                                    <div class="costs_name">{{ information.language }}</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex_detail">
+                                    <div class="costs_text">Awards</div>
+                                    <div class="costs_name">{{ information.awards }}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
                 </div>
             </div>
-            <br/>
         </div>
     </div>
-    
+    <div v-else>
+      <p>Loading movie details...</p>
+    </div>
 </template>
 <style scoped>
 .flash_back {
@@ -168,7 +171,7 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
    border-radius: 18px;
 }
 .scores {
-    width: 240px;
+    width: 260px;
 }
 .movie_history {
     font-weight: 400;

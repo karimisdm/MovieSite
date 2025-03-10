@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ListView from '@/views/ListView.vue'
 import DetailView from '@/views/DetailView.vue'
+import Detail from '@/views/Detail.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -15,7 +16,7 @@ const router = createRouter({
       path: '/list',
       name: 'movies',
       component: ListView,
-      props: {genre: null}
+      props: { genre: null }
     },
     {
       path: '/list/:genre',
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/detail/:id',
       name: 'detail',
       component: DetailView
+    },
+    {
+      path: '/detail',
+      name: 'movieDetail',
+      component: Detail,
     }
   ],
 })
