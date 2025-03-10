@@ -3,6 +3,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { debounce } from 'lodash';
 import { useFavoriteStore } from '@/stores/favoriteMovies';
+import Detail from './Detail.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -72,8 +73,8 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
             <input v-model="searchQuery"  type="text" id="search" name="search" class="search_section" />
             <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" />
         </div>
-        <div class="movies">
-            <ul v-if="detailMovie">
+        <div class="movies" v-if="detailMovie">
+            <ul>
                 <li v-for="movie in detailMovie.data" class="flex_items">
                   <RouterLink :to="{name:'detail', params:{id:movie.id} }" class="router">
                     <div class="movies_detail flex">
@@ -104,7 +105,10 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
                 </div>
                 </li> 
             </ul>
-        </div>    
+        </div>   
+        <div v-else>
+            <Detail/>
+        </div> 
     </div>
 
 </template>

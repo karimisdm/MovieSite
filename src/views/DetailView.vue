@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { useRoute,useRouter } from 'vue-router';
 import { useFavoriteStore } from '@/stores/favoriteMovies';
+import Detail from './Detail.vue';
 
 
 
@@ -129,7 +130,7 @@ const {favoriteItems,selectMovies}= useFavoriteStore();
         </div>
     </div>
     <div v-else>
-      <p>Loading movie details...</p>
+      <Detail/>
     </div>
 </template>
 <style scoped>
