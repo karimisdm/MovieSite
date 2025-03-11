@@ -34,8 +34,10 @@ const getMoviesDetail = async (query = "", page = 1) => {
             } else {
                 movies.value = [...movies.value, ...result.data];
             }
-            detailMovie.value = result;
-            totalPages.value = Math.ceil(result.metadata.total_count /5); 
+            let item_per_page = result.metadata.per_page; 
+            if (item_per_page > 1) {
+                totalPages.value = Math.ceil(result.metadata.total_count/item_per_page); 
+            }
         } else {
             console.error("Failed to fetch movies:", response.statusText);
         }
