@@ -11,22 +11,31 @@ const detailMovie = ref(null);
 const genre = ref(route.params.genre);
 const value = ref(route.params.value);
 const searchQuery = ref("");
+const currentPage = ref(1);
+const totalPages = ref(1);
+const movies = ref([]);
 
-const getMoviesDetail = async (query = "") => {
+const getMoviesDetail = async (query = "", page = 1) => {
     let url = "";
     if (genre.value) {
-        url = `https://moviesapi.codingfront.dev/api/v1/genres/${genre.value}/movies?page={page}`;
+        url = `https://moviesapi.codingfront.dev/api/v1/genres/${genre.value}/movies?q=${query}&page=${page}`;
     } else if (query) {
-        url = `https://moviesapi.codingfront.dev/api/v1/movies?q=${query}&page={page}`;
+        url = `https://moviesapi.codingfront.dev/api/v1/movies?q=${query}&page=${page}`;
     } else {
-        url = "https://moviesapi.codingfront.dev/api/v1/movies?page={page}";
+        url = `https://moviesapi.codingfront.dev/api/v1/movies?page=${page}`;
     }
 
     try {
         const response = await fetch(url);
         if (response.ok) {
             const result = await response.json();
+            if (page === 1) {
+                movies.value = result.data;
+            } else {
+                movies.value = [...movies.value, ...result.data];
+            }
             detailMovie.value = result;
+            totalPages.value = Math.ceil(result.metadata.total_count /5); 
         } else {
             console.error("Failed to fetch movies:", response.statusText);
         }
@@ -36,12 +45,8 @@ const getMoviesDetail = async (query = "") => {
 };
 
 const debouncedSearch = debounce(async (query) => {
-    if (query.length == 0) {
-        await getMoviesDetail('');
-        //router.replace(`/lst/${query}`);
-    } else {
-        await getMoviesDetail(query);
-    }
+    currentPage.value = 1;
+    await getMoviesDetail(query, currentPage.value);
 }, 300);
 
 watch(searchQuery, (newQuery) => {
@@ -56,9 +61,15 @@ onMounted(() => {
     }
 });
 
-const favoriteStore = useFavoriteStore();
-const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore;
+const nextPage = async () => {
+    if (currentPage.value < totalPages.value) {
+        currentPage.value++;
+        await getMoviesDetail(searchQuery.value, currentPage.value);
+    }
+};
 
+const favoriteStore = useFavoriteStore();
+const { favoriteItems, selectMovies } = favoriteStore;
 </script>
 
 <template>
@@ -70,48 +81,49 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
         </div>
         <div class="search_bar">
             <img src="/public/searchIcon.svg" alt="icon for search" title="search" class="search_icon" />
-            <input v-model="searchQuery"  type="text" id="search" name="search" class="search_section" />
+            <input v-model="searchQuery" type="text" id="search" name="search" class="search_section" />
             <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" />
         </div>
-        <div class="movies" v-if="detailMovie">
+        <div class="movies" v-if="movies.length">
             <ul>
-                <li v-for="movie in detailMovie.data" class="flex_items">
-                  <RouterLink :to="{name:'detail', params:{id:movie.id} }" class="router">
-                    <div class="movies_detail flex">
-                       <div><img :src="movie.images" class="movies_img"/></div>
-                       <div class="movies_information">
-                         <div><strong class="movies_title">{{ movie.title }}</strong></div>
-                         <div class="movies_genre"><span>{{ movie.genres.join(',') }}</span></div> 
-                         <div class="movie_desc flex_desc">
-                            <small class="movie_year">{{ movie.year }}</small>
-                            <div class="dot"></div>
-                            <small class="movie_year">{{ movie.country }}</small>
-                            <div class="dot"></div>
-                            <div class="flex_star">
-                                <div class="star"></div>
-                                <div><small>{{ movie.imdb_rating }}</small></div>
+                <li v-for="movie in movies" :key="movie.id" class="flex_items">
+                    <RouterLink :to="{ name: 'detail', params: { id: movie.id } }" class="router">
+                        <div class="movies_detail flex">
+                            <div><img :src="movie.images" class="movies_img" /></div>
+                            <div class="movies_information">
+                                <div><strong class="movies_title">{{ movie.title }}</strong></div>
+                                <div class="movies_genre"><span>{{ movie.genres.join(',') }}</span></div>
+                                <div class="movie_desc flex_desc">
+                                    <small class="movie_year">{{ movie.year }}</small>
+                                    <div class="dot"></div>
+                                    <small class="movie_year">{{ movie.country }}</small>
+                                    <div class="dot"></div>
+                                    <div class="flex_star">
+                                        <div class="star"></div>
+                                        <div><small>{{ movie.imdb_rating }}</small></div>
+                                    </div>
+                                </div>
                             </div>
-                         </div>
-                       </div>   
+                        </div>
+                    </RouterLink>
+                    <div>
+                        <button @click="selectMovies(movie)" class="btn_favorite">
+                            <span v-if="!favoriteItems.includes(movie.id)">
+                                <img src="../assets/images/heart_icon.svg" width="24px" />
+                            </span>
+                            <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px" /></span>
+                        </button>
                     </div>
-                  </RouterLink>
-                  <div>
-                    <button @click ="selectMovies(movie)" class="btn_favorite">
-                      <span v-if="!favoriteItems.includes(movie.id)">
-                        <img src="../assets/images/heart_icon.svg" width="24px"/>
-                      </span> 
-                      <span v-else><img src="../assets/images/heartColored_icon.svg" width="24px"/></span>
-                    </button> 
-                </div>
-                </li> 
+                </li>
             </ul>
-        </div>   
+            <div><button @click="nextPage" :disabled="currentPage >= totalPages" class="pagination">Next Page</button></div>
+        </div>
         <div v-else>
-            <Detail/>
-        </div> 
+            <Detail />
+        </div>
     </div>
-
 </template>
+
 <style>
 .result {
     width: 100%;
@@ -170,7 +182,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     font-weight: 300;
     line-height: 14.52px;
     opacity: 40%;
-    margin-top: -2px;   
+    margin-top: -2px;
 }
 .flex_star {
     display: flex;
@@ -179,7 +191,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
 .star {
     width: 14px;
     height: 14px;
-    background-color:#F2C94C;
+    background-color: #F2C94C;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     margin-right: 3px;
 }
@@ -189,8 +201,8 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     background-color: #070D23;
     border: #070D23;
 }
-.btn_favorite:hover img{
-   background-image: url(../assets/images/icon.svg);
+.btn_favorite:hover img {
+    background-image: url(../assets/images/icon.svg);
 }
 .flex_items {
     display: flex;
@@ -198,7 +210,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
 }
 .router {
     text-decoration-line: none;
-    color: white; 
+    color: white;
 }
 
 .movie_desc {
@@ -219,9 +231,21 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     height: 6px;
     border-radius: 100%;
     background-color: #222C4F;
-    margin: 0 15px;   
+    margin: 0 15px;
 }
-@media (max-width:500px) {
+.pagination {
+    background-color: #222C4F;
+    color: white;
+    padding: 10px 16px;
+    margin-left: 40%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border: solid #222C4F;
+    font-size: 18px;
+    text-align: center;
+}
+@media (max-width: 500px) {
     .movies_title {
         font-size: 24px;
     }
@@ -235,7 +259,7 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     .movies li {
         height: auto;
         margin-top: 0px;
-        padding: 17px 7px
+        padding: 17px 7px;
     }
     .flex_desc {
         flex-wrap: wrap;
@@ -250,6 +274,9 @@ const {favoriteItems , addFavorite, removeFavorite,selectMovies} = favoriteStore
     .result {
         margin-top: 17px;
     }
-
+    .pagination {
+        font-size: 14px;
+        padding: 7px 14px;
+    }
 }
 </style>
