@@ -81,7 +81,6 @@ const ToggleMic = ()=>{
   }
 };
 
-
 </script>
 
 <template>
@@ -91,7 +90,6 @@ const ToggleMic = ()=>{
     <div class="search_bar">
       <img src="/public/searchIcon.svg" alt="icon for search" title="search" class="search_icon"/>
       <input v-model="query" type="text" id="search" name="search" class="search_section"/>
-      {{transcript}}
       <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" @click="ToggleMic"/>
     </div>
     

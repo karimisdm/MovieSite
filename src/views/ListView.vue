@@ -14,6 +14,10 @@ const searchQuery = ref("");
 const currentPage = ref(1);
 const totalPages = ref(1);
 const movies = ref([]);
+const transcript = ref('');
+const isRecording = ref(false);
+const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const sr = new Recognition();
 
 const getMoviesDetail = async (query = "", page = 1) => {
     let url = "";
@@ -60,8 +64,32 @@ onMounted(() => {
     if (route.params.value) {
         searchQuery.value = route.params.value;
         getMoviesDetail(route.params.value);
-    }
+    };
+    sr.continuous = true;
+  sr.interimResults = true;
+
+  sr.onstart = ()=>{
+    isRecording.value = true;
+  };
+
+  sr.onend = ()=>{
+    isRecording.value = false;
+  };
+
+  sr.onresult = (evt)=> {
+    const t = Array.from(evt.results).map(result => result[0]).map(result => result.transcript).join(' ');
+
+    transcript.value = t ;
+    searchQuery.value = t;
+  };
 });
+const ToggleMic = ()=>{
+  if(isRecording.value){
+    sr.stop();
+  }else {
+    sr.start();
+  }
+};
 
 const nextPage = async () => {
     if (currentPage.value < totalPages.value) {
@@ -84,7 +112,7 @@ const { favoriteItems, selectMovies } = favoriteStore;
         <div class="search_bar">
             <img src="/public/searchIcon.svg" alt="icon for search" title="search" class="search_icon" />
             <input v-model="searchQuery" type="text" id="search" name="search" class="search_section" />
-            <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" />
+            <img src="/public/microphoneIcon.svg" alt="icon for microphone" class="microphone_icon" @click="ToggleMic"/>
         </div>
         <div class="movies" v-if="movies.length">
             <ul>
